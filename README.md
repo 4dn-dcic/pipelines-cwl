@@ -22,12 +22,24 @@
     * processed : generic output file
     * QC : output will be used to generate a quality_metric object (e.g. fastqc report)
     * report : output will be used to add a metric to input (e.g. md5)
+  * `fdn_type` (in each step 'inputs' and 'outputs' element) : a string that corresponds to one of the following three - 'data file', 'reference file', 'report', 'QC', 'parameter'
+    * 'data file' : input file and output processed file that is data dependent
+    * 'reference file' : input file that serves as a reference file (e.g. genome reference)
+    * 'QC' : same as the 'QC' category in `fdn_output_type` (output will be used to generate a quality_metric object (e.g. fastqc report))
+    * 'report' : same as the 'report' category in `fdn_output_type` (output will be used to add a metric to input (e.g. md5))
+    * 'parameter' : input or output that is not a file
   * `fdn_secondary_file_formats`  (within a top-level `inputs` and `outputs` element that contains a secondary file) : an array of strings that refer to the format name used by 4DN e.g.) ["pairs_px2"]
 
 
 ### How to run the cwl
 To run docker through CWL, you need a cwl executor - we use `cwltool` (https://github.com/common-workflow-language/cwltool) to run CWL with a json/yml file describing input data. Some example input data are inside the `tests/test_input_json` directory and you can see some `cwltool` (=`cwl-runner`) commands inside the `tests/tests.sh` script.
 
+
+### Testing CWL
+To test cwls in this repo against the test files in `tests`, use `tests/tests.sh` with cwl name (without .cwl).
+```bash
+source tests/tests.sh bwa-mem
+```
 
 ### Example usage of benchmarking script
 * importing the module

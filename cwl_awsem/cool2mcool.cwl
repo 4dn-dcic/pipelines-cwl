@@ -4,7 +4,7 @@
     ],
     "hints": [
         {
-            "dockerPull": "duplexa/4dn-hic:v38",
+            "dockerPull": "duplexa/4dn-hic:v42",
             "class": "DockerRequirement"
         }
     ],
@@ -13,6 +13,7 @@
         {
             "inputBinding": {
                 "separate": true,
+                "prefix": "-i",
                 "position": 1
             },
             "type": [
@@ -30,6 +31,7 @@
             "id": "#ncores",
             "inputBinding": {
                 "separate": true,
+                "prefix": "-p",
                 "position": 2
             }
         },
@@ -42,6 +44,7 @@
             "id": "#chunksize",
             "inputBinding": {
                 "separate": true,
+                "prefix": "-c",
                 "position": 4
             }
         },
@@ -49,6 +52,7 @@
             "default": "out",
             "inputBinding": {
                 "separate": true,
+                "prefix": "-o",
                 "position": 3
             },
             "id": "#outprefix",
@@ -56,6 +60,30 @@
                 "null",
                 "string"
             ]
+        },
+        {
+            "default": false,
+            "type": [
+                "boolean"
+            ],
+            "id": "#juicer_res",
+            "inputBinding": {
+                "separate": true,
+                "prefix": "-j",
+                "position": 5
+            }
+        },
+        {
+            "default": "",
+            "type": [
+                "string"
+            ],
+            "id": "#custom_res",
+            "inputBinding": {
+                "separate": true,
+                "prefix": "-u",
+                "position": 6
+            }
         }
     ],
     "requirements": [
@@ -70,7 +98,7 @@
             "outputBinding": {
                 "glob": "*.multires.cool"
             },
-            "id": "#output_mcool",
+            "id": "#mcool",
             "type": [
                 "null",
                 "File"
