@@ -401,7 +401,7 @@ def hi_c_processing_pairs(input_json):
     # space
     input_size = sum(in_size['input_pairs']) / GB_IN_BYTES
     out_size = input_size * 1.5 
-    intermediate_size = input_size * 3
+    intermediate_size = input_size * 10
     total_size = input_size + out_size + intermediate_size
     total_safe_size = total_size * 1.4
 

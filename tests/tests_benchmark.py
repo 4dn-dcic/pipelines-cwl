@@ -148,7 +148,7 @@ class TestBenchmark(unittest.TestCase):
         assert 'aws' in res
         assert res['min_CPU'] == 8
         assert int(res['total_mem_in_MB']) == 45776
-        assert int(res['total_size_in_GB']) == 43
+        assert int(res['total_size_in_GB']) == 97
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 'r4.2xlarge'
         
