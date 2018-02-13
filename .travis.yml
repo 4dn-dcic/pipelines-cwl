@@ -25,13 +25,13 @@ script:
     fi
   - if [ "$CWL_TEST" == "1" ]; then
        set -e;
-       for CWL_NAME in CWL_NAME_LIST; do
+       for CWL_NAME in $CWL_NAME_LIST; do
            source tests/tests.sh $CWL_NAME;
        done
     fi
   - if [ "$WDL_TEST" == "1" ]; then
        set -e;
-       for WDL_NAME in WDL_NAME_LIST; do
+       for WDL_NAME in $WDL_NAME_LIST; do
            source tests/tests_wdl.sh $WDL_NAME $CROMWELL_JAR;
        done
     fi
