@@ -20,7 +20,7 @@
         position: 1
   hints: 
     - 
-      dockerPull: "duplexa/md5:v1"
+      dockerPull: "duplexa/md5:v2"
       class: "DockerRequirement"
   baseCommand: 
     - "run.sh"
