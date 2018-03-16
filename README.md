@@ -28,6 +28,9 @@
     * 'QC' : same as the 'QC' category in `fdn_output_type` (output will be used to generate a quality_metric object (e.g. fastqc report))
     * 'report' : same as the 'report' category in `fdn_output_type` (output will be used to add a metric to input (e.g. md5))
     * 'parameter' : input or output that is not a file
+  * `fdn_cardinatlity` (in each step 'inputs' and 'outputs' element) : either 'array' or 'single', referring to whether the input/output is an array or a singlet.
+    * 'array' : the input/output is an array
+    * 'single' : the input/output is not an array
   * `fdn_secondary_file_formats`  (within a top-level `inputs` and `outputs` element that contains a secondary file) : an array of strings that refer to the format name used by 4DN e.g.) ["pairs_px2"]
 
 
