@@ -1,7 +1,7 @@
 import os
 import csv
 import re
-from Benchmark.byteformat import *
+from Benchmark.byteformat import MB2GB
 
 
 class BenchmarkResult(object):
@@ -55,14 +55,14 @@ def rdict(x):
         l = [rdict(_) for _ in x]
         return l
     elif isinstance(x, dict):
-        x2={}
+        x2 = {}
         for k, v in x.items():
             x2[k] = rdict(v)
         return x2
     else:
         if hasattr(x, '__dict__'):
             d = x.__dict__
-            toremove=[]
+            toremove = []
             for k, v in d.items():
                 if v is None:
                     toremove.append(k)
@@ -116,4 +116,3 @@ class NoMatchingInstanceException(Exception):
     def __init__(self, value=None):
         if not value:
             self.value = "No EC2 instance can match the requirement."
-

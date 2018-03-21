@@ -1,4 +1,4 @@
-from Benchmark.byteformat import *
+from Benchmark.byteformat import B2GB, B2MB, MB2GB, GB2MB
 from Benchmark.classes import BenchmarkResult
 
 
@@ -297,20 +297,25 @@ def hi_c_processing_bam(input_json):
     nthreads_parse_sort = 8  # default from cwl
     nthreads_merge = 8  # default from cwl
     if 'parameters' in input_json:
-        if 'nthreads_parse_sort' in input_json.get('parameters'):
-            nthreads_parse_sort = input_json.get('parameters').get('nthreads_parse_sort')
-        if 'nthreads_merge' in input_json.get('parameters'):
-            nthreads_merge = input_json.get('parameters').get('nthreads_merge')
+        param = input_json['parameters']
+        if 'nthreads_parse_sort' in param:
+            nthreads_parse_sort = param['nthreads_parse_sort']
+        if 'nthreads_merge' in param:
+            nthreads_merge = param['nthreads_merge']
 
     # nthreads is the maximum of the two nthread parameters
-    nthreads = nthreads_parse_sort if nthreads_parse_sort > nthreads_merge else nthreads_merge
+    if nthreads_parse_sort > nthreads_merge:
+        nthreads = nthreads_parse_sort
+    else:
+        nthreads = nthreads_merge
 
     bamsize = B2GB(sum(in_size['input_bams']))
     other_inputsize = B2GB(in_size.get('chromsize'))
-    pairsize = bamsize / 2  ## rough number
+    pairsize = bamsize / 2  # rough number
     outsize = bamsize + pairsize
     tmp_pairsamsize = bamsize * 5
-    total_size = (bamsize + other_inputsize + outsize) *2 + tmp_pairsamsize  # input and output are copied once
+    # input and output are copied once
+    total_size = (bamsize + other_inputsize + outsize) * 2 + tmp_pairsamsize
     safe_total_size = total_size * 2
     mem = 2000  # very rough number
 
@@ -333,7 +338,7 @@ def hi_c_processing_pairs(input_json):
 
     # space
     input_size = B2GB(sum(in_size['input_pairs']))
-    out_size = input_size * 1.5 
+    out_size = input_size * 1.5
     intermediate_size = input_size * 10
     total_size = input_size + out_size + intermediate_size
     total_safe_size = total_size * 1.4

@@ -17,4 +17,3 @@ def MB2GB(x):
 
 def GB2MB(x):
     return(x*GB_IN_MB)
-

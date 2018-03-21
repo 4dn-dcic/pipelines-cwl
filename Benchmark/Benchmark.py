@@ -1,6 +1,3 @@
-import os
-import csv
-import re
 from Benchmark.bfunctions import *
 
 # input_json is a dictionary with two keys:
@@ -48,4 +45,5 @@ def benchmark(app_name, input_json, raise_error=False):
 class AppNameUnavailableException(Exception):
     def __init__(self, value=None):
         if not value:
-            self.value = "Benchmark is unavailable for the corresponding app_name"
+            self.value = "Benchmark is unavailable for \
+                          the corresponding app_name"
