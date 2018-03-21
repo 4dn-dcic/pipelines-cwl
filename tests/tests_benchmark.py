@@ -2,6 +2,7 @@ import unittest
 from Benchmark import Benchmark as B
 from Benchmark import classes as C
 
+
 class TestGetOptimalInstanceType(unittest.TestCase):
     def test_get_optimal_instance_type1(self):
         res = C.get_optimal_instance_type()
@@ -119,7 +120,7 @@ class TestBenchmark(unittest.TestCase):
         assert 'aws' in res
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 'r4.large'
-    
+
     def test_benchmark12(self):
         input_json = {'input_size_in_bytes': {'input_bams': [1000000000, 2000000000],
                                               'chromsize': 200000},
@@ -151,7 +152,7 @@ class TestBenchmark(unittest.TestCase):
         assert int(res['total_size_in_GB']) == 97
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 'r4.2xlarge'
-        
+
     def test_benchmark_none1(self):
         input_json = {'input_size_in_bytes': {'fastq1': 93520,
                                               'fastq2': 97604,
