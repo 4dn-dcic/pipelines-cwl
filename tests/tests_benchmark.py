@@ -1,16 +1,16 @@
 import unittest
 from Benchmark import Benchmark as B
-
+from Benchmark import classes as C
 
 class TestGetOptimalInstanceType(unittest.TestCase):
     def test_get_optimal_instance_type1(self):
-        res = B.get_optimal_instance_type()
+        res = C.get_optimal_instance_type()
         assert 'recommended_instance_type' in res
         assert res['recommended_instance_type'] == 't2.nano'
         print(res)
 
     def test_get_optimal_instance_type2(self):
-        res = B.get_optimal_instance_type(cpu=32, mem_in_gb=16)
+        res = C.get_optimal_instance_type(cpu=32, mem_in_gb=16)
         assert 'recommended_instance_type' in res
         assert res['recommended_instance_type'] == 'c4.8xlarge'
         print(res)
@@ -133,7 +133,7 @@ class TestBenchmark(unittest.TestCase):
         assert 'recommended_instance_type' in res['aws']
         assert res['aws']['recommended_instance_type'] == 't2.2xlarge'
         assert res['min_CPU'] == 8
-        assert int(res['total_size_in_GB']) == 39
+        assert int(res['total_size_in_GB']) == 55
 
     def test_benchmark13(self):
         input_json = {'input_size_in_bytes': {'input_pairs': [1000000000,
