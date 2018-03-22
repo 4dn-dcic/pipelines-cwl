@@ -2,57 +2,59 @@
   class: "Workflow"
   fdn_meta: 
     title: "Pseudo Workflow for DamID-seq"
-    name: "dam-id-processing-pseudo-counts2norm"
+    name: "dam-id-processing-pseudo-norm2LAD"
     data_types: 
       - "DAM-ID Seq"
-    category: "full pipeline"
+    category: "LAD calling"
     workflow_type: "DamID Seq data analysis"
-    description: "This is a pseudo-workflow of DamID-seq data processing pipeline. It takes a list of fastq files and creates bam, normalized bed, LAD bed, track bw and stats file."
+    description: "This is a pseudo-workflow of DamID-seq data processing pipeline. It takes a normalized bw file and creates a LAD bed file and a LAD state txt file."
   inputs: 
     - 
-      id: "#count_data"
-      type: "File" 
-      fdn_format: "bw"
-    - 
-      id: "#count_control"
-      type: "File" 
+      id: "#norm_bw"
+      type: "File"
       fdn_format: "bw"
   outputs: 
     - 
-      id: "#norm_bw"
+      id: "#LAD"
       type: 
         - "File"
-      source: "#normalize.norm_bw"
-      fdn_format: "bw"
+      source: "#call-lad.lad"
+      fdn_format: "bed"
+      fdn_output_type: "processed"
+    - 
+      id: "#LAD_states"
+      type: 
+        - "File"
+      source: "#call-lad.lad_states"
+      fdn_format: "txt"
       fdn_output_type: "processed"
   cwlVersion: "draft-3"
   steps: 
     - 
       fdn_step_meta: 
-        description: "Normalization"
+        description: "Calling LADs"
         analysis_step_types: 
-          - "normalization"
+          - "lad-calling"
       outputs: 
         - 
-          id: "#normalize.norm_bw"
+          id: "#call-lad.lad"
+          fdn_format: "bw"
+          fdn_cardinality: "single"
+          fdn_type: "data file"
+        - 
+          id: "#call-lad.lad_states"
           fdn_format: "bw"
           fdn_cardinality: "single"
           fdn_type: "data file"
       inputs: 
         - 
-          id: "#normalize.count_data"
-          source: "#count_data"
-          fdn_format: "bw"
-          fdn_cardinality: "single"
-          fdn_type: "data file"
-        - 
-          id: "#normalize.count_control"
-          source: "#count_control"
+          id: "#call-lad.norm_bw"
+          source: "#norm_bw"
           fdn_format: "bw"
           fdn_cardinality: "single"
           fdn_type: "data file"
       run: ""
-      id: "#normalize"
+      id: "#call-lad"
   requirements: 
     - 
       class: "InlineJavascriptRequirement"
