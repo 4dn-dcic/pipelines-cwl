@@ -1,7 +1,7 @@
 {
     "hints": [
         {
-            "dockerPull": "duplexa/4dn-repliseq:v11",
+            "dockerPull": "duplexa/4dn-repliseq:v12",
             "class": "DockerRequirement"
         }
     ],
