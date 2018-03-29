@@ -191,6 +191,9 @@
                 {
                     "fdn_format": "bam",
                     "id": "#dedup.out_deduped_bam"
+                },
+                {
+                    "id": "#dedup.out_qc_report"
                 }
             ],
             "run": "dedup.cwl",
