@@ -89,6 +89,7 @@
             "outputs": [
                 {
                     "id": "#clip.out_clipped_fastq",
+                    "fdn_cardinality": "single",
                     "fdn_format": "fastq"
                 }
             ],
@@ -97,7 +98,9 @@
                 {
                     "source": "#fastq",
                     "id": "#clip.input_fastq",
-                    "fdn_format": "fastq"
+                    "fdn_format": "fastq",
+                    "fdn_cardinality": "single",
+                    "fdn_type": "data file"
                 }
             ],
             "id": "#clip",
@@ -111,6 +114,7 @@
             "outputs": [
                 {
                     "fdn_format": "bam",
+                    "fdn_cardinality": "single",
                     "id": "#align.out_bam"
                 }
             ],
@@ -119,15 +123,20 @@
                 {
                     "source": "#clip.out_clipped_fastq",
                     "fdn_format": "fastq",
+                    "fdn_cardinality": "single",
                     "id": "#align.fastq1"
                 },
                 {
                     "source": "#bwaIndex",
                     "fdn_format": "bwaIndex",
+                    "fdn_type": "reference file",
+                    "fdn_cardinality": "single",
                     "id": "#align.bwa_index"
                 },
                 {
                     "source": "#nthreads",
+                    "fdn_type": "parameter",
+                    "fdn_cardinality": "single",
                     "id": "#align.nThreads"
                 }
             ],
@@ -142,6 +151,7 @@
             "outputs": [
                 {
                     "fdn_format": "bam",
+                    "fdn_cardinality": "single",
                     "id": "#filtersort.out_filtered_sorted_bam"
                 }
             ],
@@ -150,14 +160,19 @@
                 {
                     "source": "#align.out_bam",
                     "fdn_format": "bam",
+                    "fdn_cardinality": "single",
                     "id": "#filtersort.input_bam"
                 },
                 {
                     "source": "#nthreads",
+                    "fdn_type": "parameter",
+                    "fdn_cardinality": "single",
                     "id": "#filtersort.nthreads"
                 },
                 {
                     "source": "#memperthread",
+                    "fdn_type": "parameter",
+                    "fdn_cardinality": "single",
                     "id": "#filtersort.memperthread"
                 }
             ],
@@ -172,10 +187,14 @@
             "outputs": [
                 {
                     "fdn_format": "bam",
+                    "fdn_type": "data file",
+                    "fdn_cardinality": "single",
                     "id": "#dedup.out_deduped_bam"
                 },
                 {
-                    "id": "#dedup.out_qc_report"
+                    "id": "#dedup.out_qc_report",
+                    "fdn_cardinality": "single",
+                    "fdn_type": "QC"
                 }
             ],
             "run": "dedup.cwl",
@@ -183,6 +202,7 @@
                 {
                     "source": "#filtersort.out_filtered_sorted_bam",
                     "fdn_format": "bam",
+                    "fdn_cardinality": "single",
                     "id": "#dedup.input_bam"
                 }
             ],
@@ -197,6 +217,8 @@
             "outputs": [
                 {
                     "fdn_format": "bg",
+                    "fdn_type": "data file",
+                    "fdn_cardinality": "single",
                     "id": "#count.out_count_bg"
                 }
             ],
@@ -205,15 +227,21 @@
                 {
                     "source": "#dedup.out_deduped_bam",
                     "fdn_format": "bam",
+                    "fdn_type": "data file",
+                    "fdn_cardinality": "single",
                     "id": "#count.input_bam"
                 },
                 {
                     "source": "#chromsizes",
                     "fdn_format": "chromsize",
+                    "fdn_type": "reference file",
+                    "fdn_cardinality": "single",
                     "id": "#count.chrsizes"
                 },
                 {
                     "source": "#winsize",
+                    "fdn_type": "parameter",
+                    "fdn_cardinality": "single",
                     "id": "#count.winsize"
                 }
             ],
