@@ -73,7 +73,7 @@
             ],
             "id": "#out_count_bg",
             "outputBinding": {
-                "glob": "$(inputs.outdir + '/' + inputs.outprefix + '.w' + inputs.winsize + '.bg')"
+                "glob": "$(inputs.outdir + '/' + inputs.outprefix + '.w' + inputs.winsize + '.bedGraph.gz')"
             }
         }
     ],
