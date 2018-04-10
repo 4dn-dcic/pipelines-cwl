@@ -243,11 +243,7 @@
           "fdn_format": "bg",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
-          "id": "#count.out_count_bg",
-          "fdn_secondary_file_formats": [
-            "bg_px2",
-            "bw"
-          ]
+          "id": "#count.out_count_bg"
         }
       ],
       "run": "count.cwl",
