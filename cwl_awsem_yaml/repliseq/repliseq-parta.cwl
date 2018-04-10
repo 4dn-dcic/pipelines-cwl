@@ -28,6 +28,9 @@
       id: "#count_bg"
       fdn_output_type: "processed"
       fdn_format: "bg"
+      fdn_secondary_file_formats: 
+        - "bg_px2"
+        - "bw"
   inputs: 
     - 
       type: 
@@ -66,6 +69,7 @@
       outputs: 
         - 
           id: "#clip.out_clipped_fastq"
+          fdn_cardinality: "single"
           fdn_format: "fastq"
       run: "clip.cwl"
       inputs: 
@@ -73,11 +77,13 @@
           source: "#fastq"
           id: "#clip.input_fastq"
           fdn_format: "fastq"
+          fdn_cardinality: "single"
+          fdn_type: "data file"
       id: "#clip"
       fdn_step_meta: 
         software_used: 
           - "cutadapt_1.14"
-          - "repli-seq-pipeline_f2eb46"
+          - "repli-seq-pipeline_74bb1d"
         description: "Adapter removal according to the Repli-seq pipeline"
         analysis_step_types: 
           - "adapter removal"
@@ -85,25 +91,31 @@
       outputs: 
         - 
           fdn_format: "bam"
+          fdn_cardinality: "single"
           id: "#align.out_bam"
       run: "align.cwl"
       inputs: 
         - 
           source: "#clip.out_clipped_fastq"
           fdn_format: "fastq"
+          fdn_cardinality: "single"
           id: "#align.fastq1"
         - 
           source: "#bwaIndex"
           fdn_format: "bwaIndex"
+          fdn_type: "reference file"
+          fdn_cardinality: "single"
           id: "#align.bwa_index"
         - 
           source: "#nthreads"
+          fdn_type: "parameter"
+          fdn_cardinality: "single"
           id: "#align.nThreads"
       id: "#align"
       fdn_step_meta: 
         software_used: 
           - "bwa_0.7.15"
-          - "repli-seq-pipeline_f2eb46"
+          - "repli-seq-pipeline_74bb1d"
         description: "Alignment according to the Repli-seq pipeline"
         analysis_step_types: 
           - "alignment"
@@ -111,24 +123,30 @@
       outputs: 
         - 
           fdn_format: "bam"
+          fdn_cardinality: "single"
           id: "#filtersort.out_filtered_sorted_bam"
       run: "filtersort.cwl"
       inputs: 
         - 
           source: "#align.out_bam"
           fdn_format: "bam"
+          fdn_cardinality: "single"
           id: "#filtersort.input_bam"
         - 
           source: "#nthreads"
+          fdn_type: "parameter"
+          fdn_cardinality: "single"
           id: "#filtersort.nthreads"
         - 
           source: "#memperthread"
+          fdn_type: "parameter"
+          fdn_cardinality: "single"
           id: "#filtersort.memperthread"
       id: "#filtersort"
       fdn_step_meta: 
         software_used: 
           - "samtools_1.4"
-          - "repli-seq-pipeline_f2eb46"
+          - "repli-seq-pipeline_74bb1d"
         description: "Filtering and sorting according to the Repli-seq pipeline"
         analysis_step_types: 
           - "filtering"
@@ -137,20 +155,25 @@
       outputs: 
         - 
           fdn_format: "bam"
+          fdn_type: "data file"
+          fdn_cardinality: "single"
           id: "#dedup.out_deduped_bam"
         - 
           id: "#dedup.out_qc_report"
+          fdn_cardinality: "single"
+          fdn_type: "QC"
       run: "dedup.cwl"
       inputs: 
         - 
           source: "#filtersort.out_filtered_sorted_bam"
           fdn_format: "bam"
+          fdn_cardinality: "single"
           id: "#dedup.input_bam"
       id: "#dedup"
       fdn_step_meta: 
         software_used: 
           - "samtools_1.4"
-          - "repli-seq-pipeline_f2eb46"
+          - "repli-seq-pipeline_74bb1d"
         description: "PCR Duplicate removal according to the Repli-seq pipeline"
         analysis_step_types: 
           - "duplicate removal"
@@ -158,25 +181,37 @@
       outputs: 
         - 
           fdn_format: "bg"
+          fdn_type: "data file"
+          fdn_cardinality: "single"
           id: "#count.out_count_bg"
+          fdn_secondary_file_formats: 
+            - "bg_px2"
+            - "bw"
       run: "count.cwl"
       inputs: 
         - 
           source: "#dedup.out_deduped_bam"
           fdn_format: "bam"
+          fdn_type: "data file"
+          fdn_cardinality: "single"
           id: "#count.input_bam"
         - 
           source: "#chromsizes"
           fdn_format: "chromsize"
+          fdn_type: "reference file"
+          fdn_cardinality: "single"
           id: "#count.chrsizes"
         - 
           source: "#winsize"
+          fdn_type: "parameter"
+          fdn_cardinality: "single"
           id: "#count.winsize"
       id: "#count"
       fdn_step_meta: 
         software_used: 
           - "bedtools_2.26.0"
-          - "repli-seq-pipeline_f2eb46"
+          - "repli-seq-pipeline_74bb1d"
+          - "pairix_0.3.5"
         description: "Read aggregation according to the Repli-seq pipeline"
         analysis_step_types: 
           - "binning"
