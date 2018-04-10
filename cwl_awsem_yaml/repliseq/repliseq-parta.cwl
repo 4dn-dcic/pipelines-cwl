@@ -209,6 +209,7 @@
           - "bedtools_2.26.0"
           - "repli-seq-pipeline_74bb1d"
           - "pairix_0.3.5"
+          - "bedGraphToBigWig_v302.1.0"
         description: "Read aggregation according to the Repli-seq pipeline"
         analysis_step_types: 
           - "binning"
