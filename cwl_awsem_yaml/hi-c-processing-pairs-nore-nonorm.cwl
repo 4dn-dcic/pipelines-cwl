@@ -1,11 +1,7 @@
 ---
   fdn_meta: 
     title: "Generation of multiresolution Hi-C contact matrices from a set of contact lists, no normalization, no restriction enzyme"
-<<<<<<< HEAD
-    name: "hi-c-processing-pairs"
-=======
     name: "hi-c-processing-pairs-nore-nonorm"
->>>>>>> 81704d272159cdd50aa6f053e857e29dbacb03ef
     data_types: 
       - "ChIA-PET"
     category: "merging + aggregation + normalization"
