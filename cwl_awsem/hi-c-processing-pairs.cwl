@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 {
   "fdn_meta": {
     "title": "Generation of multiresolution Hi-C contact matrices from a set of contact lists",
@@ -499,4 +497,3 @@
     }
   ]
 }
->>>>>>> 81704d272159cdd50aa6f053e857e29dbacb03ef
