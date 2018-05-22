@@ -616,7 +616,7 @@
                 }
             ], 
             "run": "bam2matrix2.cwl", 
-            "scatter": "#hictool_hdf52matrix.chromosome"
+            "scatter": "#hictool_hdf52matrix/chromosome"
         }
     ]
 }

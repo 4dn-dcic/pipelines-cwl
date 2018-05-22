@@ -87,9 +87,6 @@
       "run": "merge-pairs.cwl",
       "inputs": [
         {
-          "id": "#merge_pairs.outprefix"
-        },
-        {
           "source": "#input_pairs",
           "id": "#merge_pairs.input_pairs"
         }
@@ -117,14 +114,8 @@
           "id": "#cooler.binsize"
         },
         {
-          "id": "#cooler.outprefix"
-        },
-        {
           "source": "#ncores",
           "id": "#cooler.ncores"
-        },
-        {
-          "id": "#cooler.max_split"
         }
       ],
       "id": "#cooler"
@@ -146,14 +137,8 @@
           "id": "#pairs2hic.chromsizes_file"
         },
         {
-          "id": "#pairs2hic.output_prefix"
-        },
-        {
           "source": "#min_res",
           "id": "#pairs2hic.min_res"
-        },
-        {
-          "id": "#pairs2hic.higlass"
         },
         {
           "source": "#maxmem",

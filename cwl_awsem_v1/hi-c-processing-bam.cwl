@@ -204,7 +204,7 @@
                 }
             ], 
             "run": "pairsam-parse-sort.cwl", 
-            "scatter": "#pairsam-parse-sort.bam"
+            "scatter": "#pairsam-parse-sort/bam"
         }, 
         {
             "fdn_step_meta": {
