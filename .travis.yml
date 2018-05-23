@@ -11,13 +11,13 @@ matrix:
   include:
     - env:
         - BENCHMARKTEST=1
-    - install:
+      install:
         - python setup.py install  # benchmark
       script:
         - python tests/tests_benchmark.py;
     - env:
         - WDL_TEST=1 CROMWELL_JAR=cromwell.jar WDL_NAME_LIST="bwa-mem"
-    - install:
+      install:
         - wget https://github.com/broadinstitute/cromwell/releases/download/29/cromwell-29.jar -O $CROMWELL_JAR
       script:
         - set -e;
