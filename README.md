@@ -1,6 +1,11 @@
 # pipelines-cwl
 * This is a collection of pipelines built by 4DN-DCIC that were created and run either on the SevenBridges platform or on the 4DN platform, AWSEM.
 
+### Directories
+* `cwl_awsem` : AWSEM CWLs in draft-3 in json format
+* `cwl_awsem_v1` : AWSEM CWLs in v1.0 in json format
+* `cwl_awsem_yaml` : AWSEM CWLs in draft-3 in yaml format
+
 ### Specification for 4DN
 * Currently, 4DN DCIC uses CWL `draft-3`.
 * The following 4DN custom fields are added, for automated conversion from cwl to the workflow metadata used by the 4DN Data Portal.
