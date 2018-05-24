@@ -1,173 +1,181 @@
 {
-  "class": "Workflow",
-  "fdn_meta": {
-    "title": "Pseudo Workflow for DamID-seq",
-    "name": "dam-id-processing-pseudo",
-    "data_types": [
-      "DAM-ID Seq"
-    ],
-    "category": "full pipeline",
-    "workflow_type": "DamID Seq data analysis",
-    "description": "This is a pseudo-workflow of DamID-seq data processing pipeline. It takes a list of fastq files and creates bam, normalized bed, LAD bed, track bw and stats file."
-  },
-  "inputs": [
-    {
-      "id": "#fastqs",
-      "type": [
+    "class": "Workflow", 
+    "cwlVersion": "v1.0", 
+    "fdn_meta": {
+        "category": "full pipeline", 
+        "data_types": [
+            "DAM-ID Seq"
+        ], 
+        "description": "This is a pseudo-workflow of DamID-seq data processing pipeline. It takes a list of fastq files and creates bam, normalized bed, LAD bed, track bw and stats file.", 
+        "name": "dam-id-processing-pseudo", 
+        "title": "Pseudo Workflow for DamID-seq", 
+        "workflow_type": "DamID Seq data analysis"
+    }, 
+    "inputs": [
         {
-          "type": "array",
-          "items": "File"
+            "fdn_format": "fastq", 
+            "id": "#fastqs", 
+            "type": [
+                {
+                    "items": "File", 
+                    "type": "array"
+                }
+            ]
         }
-      ],
-      "fdn_format": "fastq"
-    }
-  ],
-  "outputs": [
-    {
-      "id": "#bam",
-      "type": [
-        "File"
-      ],
-      "source": "#trim-align.bam",
-      "fdn_format": "bam",
-      "fdn_output_type": "processed"
-    },
-    {
-      "id": "#normalized_bed",
-      "type": [
-        "File"
-      ],
-      "source": "#normalize.normalized_bed",
-      "fdn_format": "bed",
-      "fdn_output_type": "processed"
-    },
-    {
-      "id": "#LAD_bed",
-      "type": [
-        "File"
-      ],
-      "source": "#call-lad.lad_bed",
-      "fdn_format": "bed",
-      "fdn_output_type": "processed"
-    },
-    {
-      "id": "#track_bw",
-      "type": [
-        "File"
-      ],
-      "source": "#call-lad.track_bw",
-      "fdn_format": "bw",
-      "fdn_output_type": "processed"
-    },
-    {
-      "id": "#stats",
-      "type": [
-        "File"
-      ],
-      "source": "#call-lad.stats",
-      "fdn_format": "txt",
-      "fdn_output_type": "processed"
-    }
-  ],
-  "cwlVersion": "draft-3",
-  "steps": [
-    {
-      "fdn_step_meta": {
-        "description": "Trimming and Aligning a set of fastq files",
-        "analysis_step_types": [
-          "alignment"
-        ]
-      },
-      "outputs": [
+    ], 
+    "outputs": [
         {
-          "id": "#trim-align.bam",
-          "fdn_format": "bam",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
+            "fdn_format": "bam", 
+            "fdn_output_type": "processed", 
+            "id": "#bam", 
+            "outputSource": "#trim-align/bam", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "bed", 
+            "fdn_output_type": "processed", 
+            "id": "#normalized_bed", 
+            "outputSource": "#normalize/normalized_bed", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "bed", 
+            "fdn_output_type": "processed", 
+            "id": "#LAD_bed", 
+            "outputSource": "#call-lad/lad_bed", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "bw", 
+            "fdn_output_type": "processed", 
+            "id": "#track_bw", 
+            "outputSource": "#call-lad/track_bw", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "txt", 
+            "fdn_output_type": "processed", 
+            "id": "#stats", 
+            "outputSource": "#call-lad/stats", 
+            "type": [
+                "File"
+            ]
         }
-      ],
-      "inputs": [
+    ], 
+    "requirements": [
         {
-          "id": "#trim-align.fastqs",
-          "source": "#fastqs",
-          "fdn_format": "fastq",
-          "fdn_cardinality": "array",
-          "fdn_type": "data file"
+            "class": "InlineJavascriptRequirement"
         }
-      ],
-      "run": "",
-      "id": "#trim-align"
-    },
-    {
-      "fdn_step_meta": {
-        "description": "Normalization",
-        "analysis_step_types": [
-          "normalization"
-        ]
-      },
-      "outputs": [
+    ], 
+    "steps": [
         {
-          "id": "#normalize.normalized_bed",
-          "fdn_format": "bed",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "alignment"
+                ], 
+                "description": "Trimming and Aligning a set of fastq files"
+            }, 
+            "id": "#trim-align", 
+            "in": [
+                {
+                    "arg_name": "fastqs", 
+                    "fdn_cardinality": "array", 
+                    "fdn_format": "fastq", 
+                    "fdn_type": "data file", 
+                    "id": "#trim-align/fastqs", 
+                    "source": "#fastqs"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "fdn_type": "data file", 
+                    "id": "#trim-align/bam"
+                }
+            ], 
+            "run": ""
+        }, 
+        {
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "normalization"
+                ], 
+                "description": "Normalization"
+            }, 
+            "id": "#normalize", 
+            "in": [
+                {
+                    "arg_name": "bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "fdn_type": "data file", 
+                    "id": "#normalize/bam", 
+                    "source": "#trim-align/bam"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "normalized_bed", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bed", 
+                    "fdn_type": "data file", 
+                    "id": "#normalize/normalized_bed"
+                }
+            ], 
+            "run": ""
+        }, 
+        {
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "LAD calling"
+                ], 
+                "description": "Calling LADs"
+            }, 
+            "id": "#call-lad", 
+            "in": [
+                {
+                    "arg_name": "normalized_bed", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bed", 
+                    "fdn_type": "data file", 
+                    "id": "#call-lad/normalized_bed", 
+                    "source": "#normalize/normalized_bed"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "lad_bed", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bed", 
+                    "fdn_type": "data file", 
+                    "id": "#call-lad/lad_bed"
+                }, 
+                {
+                    "arg_name": "track_bw", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bw", 
+                    "fdn_type": "data file", 
+                    "id": "#call-lad/track_bw"
+                }, 
+                {
+                    "arg_name": "stats", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "txt", 
+                    "fdn_type": "data file", 
+                    "id": "#call-lad/stats"
+                }
+            ], 
+            "run": ""
         }
-      ],
-      "inputs": [
-        {
-          "id": "#normalize.bam",
-          "source": "#trim-align.bam",
-          "fdn_format": "bam",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
-        }
-      ],
-      "run": "",
-      "id": "#normalize"
-    },
-    {
-      "fdn_step_meta": {
-        "description": "Calling LADs",
-        "analysis_step_types": [
-          "LAD calling"
-        ]
-      },
-      "outputs": [
-        {
-          "id": "#call-lad.lad_bed",
-          "fdn_format": "bed",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
-        },
-        {
-          "id": "#call-lad.track_bw",
-          "fdn_format": "bw",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
-        },
-        {
-          "id": "#call-lad.stats",
-          "fdn_format": "txt",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
-        }
-      ],
-      "inputs": [
-        {
-          "id": "#call-lad.normalized_bed",
-          "source": "#normalize.normalized_bed",
-          "fdn_format": "bed",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
-        }
-      ],
-      "run": "",
-      "id": "#call-lad"
-    }
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ]
+    ]
 }
