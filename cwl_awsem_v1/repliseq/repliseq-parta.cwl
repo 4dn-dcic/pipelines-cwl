@@ -1,293 +1,310 @@
 {
-  "fdn_meta": {
-    "title": "Repli-seq data processing pipeline for alignment, filtering and counting",
-    "name": "repliseq-parta",
-    "data_types": [
-      "Repli-seq"
-    ],
-    "category": "align + filter + count",
-    "workflow_type": "Repli-seq data processing",
-    "description": "This is a subworkflow of the Repli-seq data processing pipeline. It takes a raw fastq file, aligns to the reference genome, performs filtering and reports read counts in a bedgraph (bg) format."
-  },
-  "outputs": [
-    {
-      "type": [
-        "File"
-      ],
-      "source": "#dedup.out_deduped_bam",
-      "id": "#filtered_sorted_deduped_bam",
-      "fdn_output_type": "processed",
-      "fdn_format": "bam"
-    },
-    {
-      "type": [
-        "File"
-      ],
-      "source": "#dedup.out_qc_report",
-      "id": "#dedup_qc_report",
-      "fdn_output_type": "QC"
-    },
-    {
-      "type": [
-        "File"
-      ],
-      "source": "#count.out_count_bg",
-      "id": "#count_bg",
-      "fdn_output_type": "processed",
-      "fdn_format": "bg",
-      "fdn_secondary_file_formats": [
-        "bg_px2",
-        "bw"
-      ]
-    }
-  ],
-  "inputs": [
-    {
-      "type": [
-        "File"
-      ],
-      "id": "#fastq",
-      "fdn_format": "fastq"
-    },
-    {
-      "type": [
-        "File"
-      ],
-      "id": "#bwaIndex",
-      "fdn_format": "bwaIndex"
-    },
-    {
-      "type": [
-        "File"
-      ],
-      "id": "#chromsizes",
-      "fdn_format": "chromsizes"
-    },
-    {
-      "type": [
-        "int"
-      ],
-      "id": "#nthreads",
-      "default": 4
-    },
-    {
-      "type": [
-        "string"
-      ],
-      "id": "#memperthread",
-      "default": "2G"
-    },
-    {
-      "type": [
-        "int"
-      ],
-      "id": "#winsize",
-      "default": 5000
-    }
-  ],
-  "class": "Workflow",
-  "cwlVersion": "draft-3",
-  "steps": [
-    {
-      "outputs": [
+    "class": "Workflow", 
+    "cwlVersion": "v1.0", 
+    "fdn_meta": {
+        "category": "align + filter + count", 
+        "data_types": [
+            "Repli-seq"
+        ], 
+        "description": "This is a subworkflow of the Repli-seq data processing pipeline. It takes a raw fastq file, aligns to the reference genome, performs filtering and reports read counts in a bedgraph (bg) format.", 
+        "name": "repliseq-parta", 
+        "title": "Repli-seq data processing pipeline for alignment, filtering and counting", 
+        "workflow_type": "Repli-seq data processing"
+    }, 
+    "inputs": [
         {
-          "id": "#clip.out_clipped_fastq",
-          "fdn_cardinality": "single",
-          "fdn_format": "fastq"
+            "fdn_format": "fastq", 
+            "id": "#fastq", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "bwaIndex", 
+            "id": "#bwaIndex", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "chromsizes", 
+            "id": "#chromsizes", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "default": 4, 
+            "id": "#nthreads", 
+            "type": [
+                "int"
+            ]
+        }, 
+        {
+            "default": "2G", 
+            "id": "#memperthread", 
+            "type": [
+                "string"
+            ]
+        }, 
+        {
+            "default": 5000, 
+            "id": "#winsize", 
+            "type": [
+                "int"
+            ]
         }
-      ],
-      "run": "clip.cwl",
-      "inputs": [
+    ], 
+    "outputs": [
         {
-          "source": "#fastq",
-          "id": "#clip.input_fastq",
-          "fdn_format": "fastq",
-          "fdn_cardinality": "single",
-          "fdn_type": "data file"
+            "fdn_format": "bam", 
+            "fdn_output_type": "processed", 
+            "id": "#filtered_sorted_deduped_bam", 
+            "outputSource": "#dedup/out_deduped_bam", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_output_type": "QC", 
+            "id": "#dedup_qc_report", 
+            "outputSource": "#dedup/out_qc_report", 
+            "type": [
+                "File"
+            ]
+        }, 
+        {
+            "fdn_format": "bg", 
+            "fdn_output_type": "processed", 
+            "fdn_secondary_file_formats": [
+                "bg_px2", 
+                "bw"
+            ], 
+            "id": "#count_bg", 
+            "outputSource": "#count/out_count_bg", 
+            "type": [
+                "File"
+            ]
         }
-      ],
-      "id": "#clip",
-      "fdn_step_meta": {
-        "software_used": [
-          "cutadapt_1.14",
-          "repli-seq-pipeline_74bb1d"
-        ],
-        "description": "Adapter removal according to the Repli-seq pipeline",
-        "analysis_step_types": [
-          "adapter removal"
-        ]
-      }
-    },
-    {
-      "outputs": [
+    ], 
+    "requirements": [
         {
-          "fdn_format": "bam",
-          "fdn_cardinality": "single",
-          "id": "#align.out_bam"
+            "class": "InlineJavascriptRequirement"
         }
-      ],
-      "run": "align.cwl",
-      "inputs": [
+    ], 
+    "steps": [
         {
-          "source": "#clip.out_clipped_fastq",
-          "fdn_format": "fastq",
-          "fdn_cardinality": "single",
-          "id": "#align.fastq1"
-        },
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "adapter removal"
+                ], 
+                "description": "Adapter removal according to the Repli-seq pipeline", 
+                "software_used": [
+                    "cutadapt_1.14", 
+                    "repli-seq-pipeline_74bb1d"
+                ]
+            }, 
+            "id": "#clip", 
+            "in": [
+                {
+                    "arg_name": "input_fastq", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "fastq", 
+                    "fdn_type": "data file", 
+                    "id": "#clip/input_fastq", 
+                    "source": "#fastq"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "out_clipped_fastq", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "fastq", 
+                    "id": "#clip/out_clipped_fastq"
+                }
+            ], 
+            "run": "clip.cwl"
+        }, 
         {
-          "source": "#bwaIndex",
-          "fdn_format": "bwaIndex",
-          "fdn_type": "reference file",
-          "fdn_cardinality": "single",
-          "id": "#align.bwa_index"
-        },
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "alignment"
+                ], 
+                "description": "Alignment according to the Repli-seq pipeline", 
+                "software_used": [
+                    "bwa_0.7.15", 
+                    "repli-seq-pipeline_74bb1d"
+                ]
+            }, 
+            "id": "#align", 
+            "in": [
+                {
+                    "arg_name": "fastq1", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "fastq", 
+                    "id": "#align/fastq1", 
+                    "source": "#clip/out_clipped_fastq"
+                }, 
+                {
+                    "arg_name": "bwa_index", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bwaIndex", 
+                    "fdn_type": "reference file", 
+                    "id": "#align/bwa_index", 
+                    "source": "#bwaIndex"
+                }, 
+                {
+                    "arg_name": "nThreads", 
+                    "fdn_cardinality": "single", 
+                    "fdn_type": "parameter", 
+                    "id": "#align/nThreads", 
+                    "source": "#nthreads"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "out_bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "id": "#align/out_bam"
+                }
+            ], 
+            "run": "align.cwl"
+        }, 
         {
-          "source": "#nthreads",
-          "fdn_type": "parameter",
-          "fdn_cardinality": "single",
-          "id": "#align.nThreads"
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "filtering", 
+                    "sorting"
+                ], 
+                "description": "Filtering and sorting according to the Repli-seq pipeline", 
+                "software_used": [
+                    "samtools_1.4", 
+                    "repli-seq-pipeline_74bb1d"
+                ]
+            }, 
+            "id": "#filtersort", 
+            "in": [
+                {
+                    "arg_name": "input_bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "id": "#filtersort/input_bam", 
+                    "source": "#align/out_bam"
+                }, 
+                {
+                    "arg_name": "nthreads", 
+                    "fdn_cardinality": "single", 
+                    "fdn_type": "parameter", 
+                    "id": "#filtersort/nthreads", 
+                    "source": "#nthreads"
+                }, 
+                {
+                    "arg_name": "memperthread", 
+                    "fdn_cardinality": "single", 
+                    "fdn_type": "parameter", 
+                    "id": "#filtersort/memperthread", 
+                    "source": "#memperthread"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "out_filtered_sorted_bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "id": "#filtersort/out_filtered_sorted_bam"
+                }
+            ], 
+            "run": "filtersort.cwl"
+        }, 
+        {
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "duplicate removal"
+                ], 
+                "description": "PCR Duplicate removal according to the Repli-seq pipeline", 
+                "software_used": [
+                    "samtools_1.4", 
+                    "repli-seq-pipeline_74bb1d"
+                ]
+            }, 
+            "id": "#dedup", 
+            "in": [
+                {
+                    "arg_name": "input_bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "id": "#dedup/input_bam", 
+                    "source": "#filtersort/out_filtered_sorted_bam"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "out_deduped_bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "fdn_type": "data file", 
+                    "id": "#dedup/out_deduped_bam"
+                }, 
+                {
+                    "arg_name": "out_qc_report", 
+                    "fdn_cardinality": "single", 
+                    "fdn_type": "QC", 
+                    "id": "#dedup/out_qc_report"
+                }
+            ], 
+            "run": "dedup.cwl"
+        }, 
+        {
+            "fdn_step_meta": {
+                "analysis_step_types": [
+                    "binning", 
+                    "aggregation"
+                ], 
+                "description": "Read aggregation according to the Repli-seq pipeline", 
+                "software_used": [
+                    "bedtools_2.26.0", 
+                    "repli-seq-pipeline_74bb1d", 
+                    "pairix_0.3.5", 
+                    "bedGraphToBigWig_v302.1.0"
+                ]
+            }, 
+            "id": "#count", 
+            "in": [
+                {
+                    "arg_name": "input_bam", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bam", 
+                    "fdn_type": "data file", 
+                    "id": "#count/input_bam", 
+                    "source": "#dedup/out_deduped_bam"
+                }, 
+                {
+                    "arg_name": "chrsizes", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "chromsize", 
+                    "fdn_type": "reference file", 
+                    "id": "#count/chrsizes", 
+                    "source": "#chromsizes"
+                }, 
+                {
+                    "arg_name": "winsize", 
+                    "fdn_cardinality": "single", 
+                    "fdn_type": "parameter", 
+                    "id": "#count/winsize", 
+                    "source": "#winsize"
+                }
+            ], 
+            "out": [
+                {
+                    "arg_name": "out_count_bg", 
+                    "fdn_cardinality": "single", 
+                    "fdn_format": "bg", 
+                    "fdn_type": "data file", 
+                    "id": "#count/out_count_bg"
+                }
+            ], 
+            "run": "count.cwl"
         }
-      ],
-      "id": "#align",
-      "fdn_step_meta": {
-        "software_used": [
-          "bwa_0.7.15",
-          "repli-seq-pipeline_74bb1d"
-        ],
-        "description": "Alignment according to the Repli-seq pipeline",
-        "analysis_step_types": [
-          "alignment"
-        ]
-      }
-    },
-    {
-      "outputs": [
-        {
-          "fdn_format": "bam",
-          "fdn_cardinality": "single",
-          "id": "#filtersort.out_filtered_sorted_bam"
-        }
-      ],
-      "run": "filtersort.cwl",
-      "inputs": [
-        {
-          "source": "#align.out_bam",
-          "fdn_format": "bam",
-          "fdn_cardinality": "single",
-          "id": "#filtersort.input_bam"
-        },
-        {
-          "source": "#nthreads",
-          "fdn_type": "parameter",
-          "fdn_cardinality": "single",
-          "id": "#filtersort.nthreads"
-        },
-        {
-          "source": "#memperthread",
-          "fdn_type": "parameter",
-          "fdn_cardinality": "single",
-          "id": "#filtersort.memperthread"
-        }
-      ],
-      "id": "#filtersort",
-      "fdn_step_meta": {
-        "software_used": [
-          "samtools_1.4",
-          "repli-seq-pipeline_74bb1d"
-        ],
-        "description": "Filtering and sorting according to the Repli-seq pipeline",
-        "analysis_step_types": [
-          "filtering",
-          "sorting"
-        ]
-      }
-    },
-    {
-      "outputs": [
-        {
-          "fdn_format": "bam",
-          "fdn_type": "data file",
-          "fdn_cardinality": "single",
-          "id": "#dedup.out_deduped_bam"
-        },
-        {
-          "id": "#dedup.out_qc_report",
-          "fdn_cardinality": "single",
-          "fdn_type": "QC"
-        }
-      ],
-      "run": "dedup.cwl",
-      "inputs": [
-        {
-          "source": "#filtersort.out_filtered_sorted_bam",
-          "fdn_format": "bam",
-          "fdn_cardinality": "single",
-          "id": "#dedup.input_bam"
-        }
-      ],
-      "id": "#dedup",
-      "fdn_step_meta": {
-        "software_used": [
-          "samtools_1.4",
-          "repli-seq-pipeline_74bb1d"
-        ],
-        "description": "PCR Duplicate removal according to the Repli-seq pipeline",
-        "analysis_step_types": [
-          "duplicate removal"
-        ]
-      }
-    },
-    {
-      "outputs": [
-        {
-          "fdn_format": "bg",
-          "fdn_type": "data file",
-          "fdn_cardinality": "single",
-          "id": "#count.out_count_bg"
-        }
-      ],
-      "run": "count.cwl",
-      "inputs": [
-        {
-          "source": "#dedup.out_deduped_bam",
-          "fdn_format": "bam",
-          "fdn_type": "data file",
-          "fdn_cardinality": "single",
-          "id": "#count.input_bam"
-        },
-        {
-          "source": "#chromsizes",
-          "fdn_format": "chromsize",
-          "fdn_type": "reference file",
-          "fdn_cardinality": "single",
-          "id": "#count.chrsizes"
-        },
-        {
-          "source": "#winsize",
-          "fdn_type": "parameter",
-          "fdn_cardinality": "single",
-          "id": "#count.winsize"
-        }
-      ],
-      "id": "#count",
-      "fdn_step_meta": {
-        "software_used": [
-          "bedtools_2.26.0",
-          "repli-seq-pipeline_74bb1d",
-          "pairix_0.3.5",
-          "bedGraphToBigWig_v302.1.0"
-        ],
-        "description": "Read aggregation according to the Repli-seq pipeline",
-        "analysis_step_types": [
-          "binning",
-          "aggregation"
-        ]
-      }
-    }
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ]
+    ]
 }
