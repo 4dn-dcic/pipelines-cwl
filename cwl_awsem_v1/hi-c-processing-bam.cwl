@@ -15,9 +15,6 @@
         {
             "fdn_format": "bam", 
             "id": "#input_bams", 
-            "isArray": true, 
-            "isFile": true, 
-            "name": "input_bams", 
             "type": [
                 {
                     "items": "File", 
@@ -28,9 +25,6 @@
         {
             "fdn_format": "chromsizes", 
             "id": "#chromsize", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "chromsize", 
             "type": [
                 "File"
             ]
@@ -38,9 +32,6 @@
         {
             "default": 8, 
             "id": "#nthreads_parse_sort", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "nthreads_parse_sort", 
             "type": [
                 "int"
             ]
@@ -48,9 +39,6 @@
         {
             "default": 8, 
             "id": "#nthreads_merge", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "nthreads_merge", 
             "type": [
                 "int"
             ]
@@ -61,12 +49,7 @@
             "fdn_format": "bam", 
             "fdn_output_type": "processed", 
             "id": "#annotated_bam", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "annotated_bam", 
             "outputSource": "#pairsam-filter/lossless_bamfile", 
-            "source_arg": "lossless_bamfile", 
-            "source_step": "pairsam-filter", 
             "type": [
                 "File"
             ]
@@ -78,12 +61,7 @@
                 "pairs_px2"
             ], 
             "id": "#filtered_pairs", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "filtered_pairs", 
             "outputSource": "#pairsam-filter/filtered_pairs", 
-            "source_arg": "filtered_pairs", 
-            "source_step": "pairsam-filter", 
             "type": [
                 "File"
             ]
@@ -95,61 +73,6 @@
         }, 
         {
             "class": "ScatterFeatureRequirement"
-        }
-    ], 
-    "sourcetarget_list": [
-        {
-            "source_arg": "lossless_bamfile", 
-            "source_step": "pairsam-filter", 
-            "target_arg": "annotated_bam"
-        }, 
-        {
-            "source_arg": "filtered_pairs", 
-            "source_step": "pairsam-filter", 
-            "target_arg": "filtered_pairs"
-        }, 
-        {
-            "source_arg": "input_bams", 
-            "target_arg": "bam", 
-            "target_step": "pairsam-parse-sort"
-        }, 
-        {
-            "source_arg": "chromsize", 
-            "target_arg": "chromsize", 
-            "target_step": "pairsam-parse-sort"
-        }, 
-        {
-            "source_arg": "nthreads_parse_sort", 
-            "target_arg": "Threads", 
-            "target_step": "pairsam-parse-sort"
-        }, 
-        {
-            "source_arg": "sorted_pairsam", 
-            "source_step": "pairsam-parse-sort", 
-            "target_arg": "input_pairsams", 
-            "target_step": "pairsam-merge"
-        }, 
-        {
-            "source_arg": "nthreads_merge", 
-            "target_arg": "nThreads", 
-            "target_step": "pairsam-merge"
-        }, 
-        {
-            "source_arg": "merged_pairsam", 
-            "source_step": "pairsam-merge", 
-            "target_arg": "input_pairsam", 
-            "target_step": "pairsam-markasdup"
-        }, 
-        {
-            "source_arg": "dupmarked_pairsam", 
-            "source_step": "pairsam-markasdup", 
-            "target_arg": "input_pairsam", 
-            "target_step": "pairsam-filter"
-        }, 
-        {
-            "source_arg": "chromsize", 
-            "target_arg": "chromsize", 
-            "target_step": "pairsam-filter"
         }
     ], 
     "steps": [
@@ -170,37 +93,25 @@
                     "arg_name": "bam", 
                     "fdn_format": "bam", 
                     "id": "#pairsam-parse-sort/bam", 
-                    "name": "pairsam-parse-sort.bam", 
-                    "source": "#input_bams", 
-                    "source_arg": "input_bams", 
-                    "step_name": "pairsam-parse-sort"
+                    "source": "#input_bams"
                 }, 
                 {
                     "arg_name": "chromsize", 
                     "fdn_format": "chromsize", 
                     "id": "#pairsam-parse-sort/chromsize", 
-                    "name": "pairsam-parse-sort.chromsize", 
-                    "source": "#chromsize", 
-                    "source_arg": "chromsize", 
-                    "step_name": "pairsam-parse-sort"
+                    "source": "#chromsize"
                 }, 
                 {
                     "arg_name": "Threads", 
                     "id": "#pairsam-parse-sort/Threads", 
-                    "name": "pairsam-parse-sort.Threads", 
-                    "source": "#nthreads_parse_sort", 
-                    "source_arg": "nthreads_parse_sort", 
-                    "step_name": "pairsam-parse-sort"
+                    "source": "#nthreads_parse_sort"
                 }
             ], 
-            "name": "pairsam-parse-sort", 
             "out": [
                 {
                     "arg_name": "sorted_pairsam", 
                     "fdn_format": "pairsam", 
-                    "id": "#pairsam-parse-sort/sorted_pairsam", 
-                    "name": "pairsam-parse-sort.sorted_pairsam", 
-                    "step_name": "pairsam-parse-sort"
+                    "id": "#pairsam-parse-sort/sorted_pairsam"
                 }
             ], 
             "run": "pairsam-parse-sort.cwl", 
@@ -222,29 +133,19 @@
                     "arg_name": "input_pairsams", 
                     "fdn_format": "pairsam", 
                     "id": "#pairsam-merge/input_pairsams", 
-                    "name": "pairsam-merge.input_pairsams", 
-                    "source": "#pairsam-parse-sort/sorted_pairsam", 
-                    "source_arg": "sorted_pairsam", 
-                    "source_step": "pairsam-parse-sort", 
-                    "step_name": "pairsam-merge"
+                    "source": "#pairsam-parse-sort/sorted_pairsam"
                 }, 
                 {
                     "arg_name": "nThreads", 
                     "id": "#pairsam-merge/nThreads", 
-                    "name": "pairsam-merge.nThreads", 
-                    "source": "#nthreads_merge", 
-                    "source_arg": "nthreads_merge", 
-                    "step_name": "pairsam-merge"
+                    "source": "#nthreads_merge"
                 }
             ], 
-            "name": "pairsam-merge", 
             "out": [
                 {
                     "arg_name": "merged_pairsam", 
                     "fdn_format": "pairsam", 
-                    "id": "#pairsam-merge/merged_pairsam", 
-                    "name": "pairsam-merge.merged_pairsam", 
-                    "step_name": "pairsam-merge"
+                    "id": "#pairsam-merge/merged_pairsam"
                 }
             ], 
             "run": "pairsam-merge.cwl"
@@ -265,21 +166,14 @@
                     "arg_name": "input_pairsam", 
                     "fdn_format": "pairsam", 
                     "id": "#pairsam-markasdup/input_pairsam", 
-                    "name": "pairsam-markasdup.input_pairsam", 
-                    "source": "#pairsam-merge/merged_pairsam", 
-                    "source_arg": "merged_pairsam", 
-                    "source_step": "pairsam-merge", 
-                    "step_name": "pairsam-markasdup"
+                    "source": "#pairsam-merge/merged_pairsam"
                 }
             ], 
-            "name": "pairsam-markasdup", 
             "out": [
                 {
                     "arg_name": "dupmarked_pairsam", 
                     "fdn_format": "pairsam", 
-                    "id": "#pairsam-markasdup/dupmarked_pairsam", 
-                    "name": "pairsam-markasdup.dupmarked_pairsam", 
-                    "step_name": "pairsam-markasdup"
+                    "id": "#pairsam-markasdup/dupmarked_pairsam"
                 }
             ], 
             "run": "pairsam-markasdup.cwl"
@@ -301,37 +195,25 @@
                     "arg_name": "input_pairsam", 
                     "fdn_format": "pairsam", 
                     "id": "#pairsam-filter/input_pairsam", 
-                    "name": "pairsam-filter.input_pairsam", 
-                    "source": "#pairsam-markasdup/dupmarked_pairsam", 
-                    "source_arg": "dupmarked_pairsam", 
-                    "source_step": "pairsam-markasdup", 
-                    "step_name": "pairsam-filter"
+                    "source": "#pairsam-markasdup/dupmarked_pairsam"
                 }, 
                 {
                     "arg_name": "chromsize", 
                     "fdn_format": "chromsize", 
                     "id": "#pairsam-filter/chromsize", 
-                    "name": "pairsam-filter.chromsize", 
-                    "source": "#chromsize", 
-                    "source_arg": "chromsize", 
-                    "step_name": "pairsam-filter"
+                    "source": "#chromsize"
                 }
             ], 
-            "name": "pairsam-filter", 
             "out": [
                 {
                     "arg_name": "lossless_bamfile", 
                     "fdn_format": "bam", 
-                    "id": "#pairsam-filter/lossless_bamfile", 
-                    "name": "pairsam-filter.lossless_bamfile", 
-                    "step_name": "pairsam-filter"
+                    "id": "#pairsam-filter/lossless_bamfile"
                 }, 
                 {
                     "arg_name": "filtered_pairs", 
                     "fdn_format": "pairs", 
-                    "id": "#pairsam-filter/filtered_pairs", 
-                    "name": "pairsam-filter.filtered_pairs", 
-                    "step_name": "pairsam-filter"
+                    "id": "#pairsam-filter/filtered_pairs"
                 }
             ], 
             "run": "pairsam-filter.cwl"

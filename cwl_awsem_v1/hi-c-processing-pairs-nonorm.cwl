@@ -15,9 +15,6 @@
         {
             "fdn_format": "pairs", 
             "id": "#input_pairs", 
-            "isArray": true, 
-            "isFile": true, 
-            "name": "input_pairs", 
             "type": [
                 "null", 
                 {
@@ -29,9 +26,6 @@
         {
             "fdn_format": "chromsize", 
             "id": "#chromsizes", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "chromsizes", 
             "type": [
                 "File"
             ]
@@ -39,9 +33,6 @@
         {
             "fdn_format": "juicer_format_restriction_site_file", 
             "id": "#restriction_file", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "restriction_file", 
             "type": [
                 "null", 
                 "File"
@@ -50,9 +41,6 @@
         {
             "default": 8, 
             "id": "#nthreads", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "nthreads", 
             "type": [
                 "int"
             ]
@@ -60,9 +48,6 @@
         {
             "default": 1000, 
             "id": "#min_res", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "min_res", 
             "type": [
                 "int"
             ]
@@ -70,9 +55,6 @@
         {
             "default": "14g", 
             "id": "#maxmem", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "maxmem", 
             "type": [
                 "string"
             ]
@@ -80,9 +62,6 @@
         {
             "default": false, 
             "id": "#higlass", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "higlass", 
             "type": [
                 "boolean"
             ]
@@ -90,9 +69,6 @@
         {
             "default": false, 
             "id": "#juicer_res", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "juicer_res", 
             "type": [
                 "boolean"
             ]
@@ -100,9 +76,6 @@
         {
             "default": "1000,2000,5000,10000,25000,50000,100000,250000,500000,1000000,2500000,5000000,10000000", 
             "id": "#custom_res", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "custom_res", 
             "type": [
                 "string"
             ]
@@ -110,9 +83,6 @@
         {
             "default": 13, 
             "id": "#nres", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "nres", 
             "type": [
                 "int"
             ]
@@ -120,9 +90,6 @@
         {
             "default": 10000000, 
             "id": "#chunksize", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "chunksize", 
             "type": [
                 "int"
             ]
@@ -130,9 +97,6 @@
         {
             "default": 0, 
             "id": "#mapqfilter_juicer", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "mapqfilter_juicer", 
             "type": [
                 "int"
             ]
@@ -140,9 +104,6 @@
         {
             "default": 2, 
             "id": "#max_split_cooler", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "max_split_cooler", 
             "type": [
                 "int"
             ]
@@ -150,9 +111,6 @@
         {
             "default": true, 
             "id": "#no_balance", 
-            "isArray": false, 
-            "isFile": false, 
-            "name": "no_balance", 
             "type": [
                 "boolean"
             ]
@@ -166,12 +124,7 @@
                 "pairs_px2"
             ], 
             "id": "#merged_pairs", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "merged_pairs", 
             "outputSource": "#merge-pairs/merged_pairs", 
-            "source_arg": "merged_pairs", 
-            "source_step": "merge-pairs", 
             "type": [
                 "File"
             ]
@@ -180,12 +133,7 @@
             "fdn_format": "hic", 
             "fdn_output_type": "processed", 
             "id": "#hic", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "hic", 
             "outputSource": "#pairs2hic/hic", 
-            "source_arg": "hic", 
-            "source_step": "pairs2hic", 
             "type": [
                 "File"
             ]
@@ -194,12 +142,7 @@
             "fdn_format": "mcool", 
             "fdn_output_type": "processed", 
             "id": "#mcool", 
-            "isArray": false, 
-            "isFile": true, 
-            "name": "mcool", 
             "outputSource": "#cool2mcool/mcool", 
-            "source_arg": "mcool", 
-            "source_step": "cool2mcool", 
             "type": [
                 "File"
             ]
@@ -211,137 +154,6 @@
         }, 
         {
             "class": "InlineJavascriptRequirement"
-        }
-    ], 
-    "sourcetarget_list": [
-        {
-            "source_arg": "merged_pairs", 
-            "source_step": "merge-pairs", 
-            "target_arg": "merged_pairs"
-        }, 
-        {
-            "source_arg": "hic", 
-            "source_step": "pairs2hic", 
-            "target_arg": "hic"
-        }, 
-        {
-            "source_arg": "mcool", 
-            "source_step": "cool2mcool", 
-            "target_arg": "mcool"
-        }, 
-        {
-            "source_arg": "input_pairs", 
-            "target_arg": "input_pairs", 
-            "target_step": "merge-pairs"
-        }, 
-        {
-            "source_arg": "merged_pairs", 
-            "source_step": "merge-pairs", 
-            "target_arg": "input_pairs", 
-            "target_step": "addfragtopairs"
-        }, 
-        {
-            "source_arg": "restriction_file", 
-            "target_arg": "restriction_file", 
-            "target_step": "addfragtopairs"
-        }, 
-        {
-            "source_arg": "merged_pairs", 
-            "source_step": "merge-pairs", 
-            "target_arg": "pairs", 
-            "target_step": "cooler"
-        }, 
-        {
-            "source_arg": "chromsizes", 
-            "target_arg": "chrsizes", 
-            "target_step": "cooler"
-        }, 
-        {
-            "source_arg": "min_res", 
-            "target_arg": "binsize", 
-            "target_step": "cooler"
-        }, 
-        {
-            "source_arg": "nthreads", 
-            "target_arg": "ncores", 
-            "target_step": "cooler"
-        }, 
-        {
-            "source_arg": "max_split_cooler", 
-            "target_arg": "max_split", 
-            "target_step": "cooler"
-        }, 
-        {
-            "source_arg": "pairs_with_frags", 
-            "source_step": "addfragtopairs", 
-            "target_arg": "input_pairs", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "chromsizes", 
-            "target_arg": "chromsizes", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "min_res", 
-            "target_arg": "min_res", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "higlass", 
-            "target_arg": "higlass", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "custom_res", 
-            "target_arg": "custom_res", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "maxmem", 
-            "target_arg": "maxmem", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "mapqfilter_juicer", 
-            "target_arg": "mapqfilter", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "no_balance", 
-            "target_arg": "no_balance", 
-            "target_step": "pairs2hic"
-        }, 
-        {
-            "source_arg": "cool", 
-            "source_step": "cooler", 
-            "target_arg": "input_cool", 
-            "target_step": "cool2mcool"
-        }, 
-        {
-            "source_arg": "nthreads", 
-            "target_arg": "ncores", 
-            "target_step": "cool2mcool"
-        }, 
-        {
-            "source_arg": "chunksize", 
-            "target_arg": "chunksize", 
-            "target_step": "cool2mcool"
-        }, 
-        {
-            "source_arg": "juicer_res", 
-            "target_arg": "juicer_res", 
-            "target_step": "cool2mcool"
-        }, 
-        {
-            "source_arg": "custom_res", 
-            "target_arg": "custom_res", 
-            "target_step": "cool2mcool"
-        }, 
-        {
-            "source_arg": "no_balance", 
-            "target_arg": "no_balance", 
-            "target_step": "cool2mcool"
         }
     ], 
     "steps": [
@@ -363,22 +175,16 @@
                     "fdn_format": "pairs", 
                     "fdn_type": "data file", 
                     "id": "#merge-pairs/input_pairs", 
-                    "name": "merge-pairs.input_pairs", 
-                    "source": "#input_pairs", 
-                    "source_arg": "input_pairs", 
-                    "step_name": "merge-pairs"
+                    "source": "#input_pairs"
                 }
             ], 
-            "name": "merge-pairs", 
             "out": [
                 {
                     "arg_name": "merged_pairs", 
                     "fdn_cardinality": "single", 
                     "fdn_format": "pairs", 
                     "fdn_type": "data file", 
-                    "id": "#merge-pairs/merged_pairs", 
-                    "name": "merge-pairs.merged_pairs", 
-                    "step_name": "merge-pairs"
+                    "id": "#merge-pairs/merged_pairs"
                 }
             ], 
             "run": "merge-pairs.cwl"
@@ -401,11 +207,7 @@
                     "fdn_format": "pairs", 
                     "fdn_type": "data file", 
                     "id": "#addfragtopairs/input_pairs", 
-                    "name": "addfragtopairs.input_pairs", 
-                    "source": "#merge-pairs/merged_pairs", 
-                    "source_arg": "merged_pairs", 
-                    "source_step": "merge-pairs", 
-                    "step_name": "addfragtopairs"
+                    "source": "#merge-pairs/merged_pairs"
                 }, 
                 {
                     "arg_name": "restriction_file", 
@@ -413,22 +215,16 @@
                     "fdn_format": "juicer_format_restriction_site_file", 
                     "fdn_type": "reference file", 
                     "id": "#addfragtopairs/restriction_file", 
-                    "name": "addfragtopairs.restriction_file", 
-                    "source": "#restriction_file", 
-                    "source_arg": "restriction_file", 
-                    "step_name": "addfragtopairs"
+                    "source": "#restriction_file"
                 }
             ], 
-            "name": "addfragtopairs", 
             "out": [
                 {
                     "arg_name": "pairs_with_frags", 
                     "fdn_cardinality": "single", 
                     "fdn_format": "pairs", 
                     "fdn_type": "data file", 
-                    "id": "#addfragtopairs/pairs_with_frags", 
-                    "name": "addfragtopairs.pairs_with_frags", 
-                    "step_name": "addfragtopairs"
+                    "id": "#addfragtopairs/pairs_with_frags"
                 }
             ], 
             "run": "addfragtopairs.cwl"
@@ -451,11 +247,7 @@
                     "fdn_format": "pairs", 
                     "fdn_type": "data file", 
                     "id": "#cooler/pairs", 
-                    "name": "cooler.pairs", 
-                    "source": "#merge-pairs/merged_pairs", 
-                    "source_arg": "merged_pairs", 
-                    "source_step": "merge-pairs", 
-                    "step_name": "cooler"
+                    "source": "#merge-pairs/merged_pairs"
                 }, 
                 {
                     "arg_name": "chrsizes", 
@@ -463,52 +255,37 @@
                     "fdn_format": "chromsizes", 
                     "fdn_type": "reference file", 
                     "id": "#cooler/chrsizes", 
-                    "name": "cooler.chrsizes", 
-                    "source": "#chromsizes", 
-                    "source_arg": "chromsizes", 
-                    "step_name": "cooler"
+                    "source": "#chromsizes"
                 }, 
                 {
                     "arg_name": "binsize", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cooler/binsize", 
-                    "name": "cooler.binsize", 
-                    "source": "#min_res", 
-                    "source_arg": "min_res", 
-                    "step_name": "cooler"
+                    "source": "#min_res"
                 }, 
                 {
                     "arg_name": "ncores", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cooler/ncores", 
-                    "name": "cooler.ncores", 
-                    "source": "#nthreads", 
-                    "source_arg": "nthreads", 
-                    "step_name": "cooler"
+                    "source": "#nthreads"
                 }, 
                 {
                     "arg_name": "max_split", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cooler/max_split", 
-                    "name": "cooler.max_split", 
-                    "source": "#max_split_cooler", 
-                    "source_arg": "max_split_cooler", 
-                    "step_name": "cooler"
+                    "source": "#max_split_cooler"
                 }
             ], 
-            "name": "cooler", 
             "out": [
                 {
                     "arg_name": "cool", 
                     "fdn_cardinality": "single", 
                     "fdn_format": "cool", 
                     "fdn_type": "data file", 
-                    "id": "#cooler/cool", 
-                    "name": "cooler.cool", 
-                    "step_name": "cooler"
+                    "id": "#cooler/cool"
                 }
             ], 
             "run": "cooler.cwl"
@@ -531,11 +308,7 @@
                     "fdn_format": "pairs", 
                     "fdn_type": "data file", 
                     "id": "#pairs2hic/input_pairs", 
-                    "name": "pairs2hic.input_pairs", 
-                    "source": "#addfragtopairs/pairs_with_frags", 
-                    "source_arg": "pairs_with_frags", 
-                    "source_step": "addfragtopairs", 
-                    "step_name": "pairs2hic"
+                    "source": "#addfragtopairs/pairs_with_frags"
                 }, 
                 {
                     "arg_name": "chromsizes", 
@@ -543,79 +316,55 @@
                     "fdn_format": "chromsizes", 
                     "fdn_type": "reference file", 
                     "id": "#pairs2hic/chromsizes", 
-                    "name": "pairs2hic.chromsizes", 
-                    "source": "#chromsizes", 
-                    "source_arg": "chromsizes", 
-                    "step_name": "pairs2hic"
+                    "source": "#chromsizes"
                 }, 
                 {
                     "arg_name": "min_res", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#pairs2hic/min_res", 
-                    "name": "pairs2hic.min_res", 
-                    "source": "#min_res", 
-                    "source_arg": "min_res", 
-                    "step_name": "pairs2hic"
+                    "source": "#min_res"
                 }, 
                 {
                     "arg_name": "higlass", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#pairs2hic/higlass", 
-                    "name": "pairs2hic.higlass", 
-                    "source": "#higlass", 
-                    "source_arg": "higlass", 
-                    "step_name": "pairs2hic"
+                    "source": "#higlass"
                 }, 
                 {
                     "arg_name": "custom_res", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#pairs2hic/custom_res", 
-                    "name": "pairs2hic.custom_res", 
-                    "source": "#custom_res", 
-                    "source_arg": "custom_res", 
-                    "step_name": "pairs2hic"
+                    "source": "#custom_res"
                 }, 
                 {
                     "arg_name": "maxmem", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#pairs2hic/maxmem", 
-                    "name": "pairs2hic.maxmem", 
-                    "source": "#maxmem", 
-                    "source_arg": "maxmem", 
-                    "step_name": "pairs2hic"
+                    "source": "#maxmem"
                 }, 
                 {
                     "arg_name": "mapqfilter", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#pairs2hic/mapqfilter", 
-                    "name": "pairs2hic.mapqfilter", 
-                    "source": "#mapqfilter_juicer", 
-                    "source_arg": "mapqfilter_juicer", 
-                    "step_name": "pairs2hic"
+                    "source": "#mapqfilter_juicer"
                 }, 
                 {
                     "arg_name": "no_balance", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#pairs2hic/no_balance", 
-                    "name": "pairs2hic.no_balance", 
-                    "source": "#no_balance", 
-                    "source_arg": "no_balance", 
-                    "step_name": "pairs2hic"
+                    "source": "#no_balance"
                 }
             ], 
-            "name": "pairs2hic", 
             "out": [
                 {
                     "arg_name": "hic", 
-                    "id": "#pairs2hic/hic", 
-                    "name": "pairs2hic.hic", 
-                    "step_name": "pairs2hic"
+                    "id": "#pairs2hic/hic"
                 }
             ], 
             "run": "pairs2hic.cwl"
@@ -639,73 +388,51 @@
                     "fdn_format": "cool", 
                     "fdn_type": "data file", 
                     "id": "#cool2mcool/input_cool", 
-                    "name": "cool2mcool.input_cool", 
-                    "source": "#cooler/cool", 
-                    "source_arg": "cool", 
-                    "source_step": "cooler", 
-                    "step_name": "cool2mcool"
+                    "source": "#cooler/cool"
                 }, 
                 {
                     "arg_name": "ncores", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cool2mcool/ncores", 
-                    "name": "cool2mcool.ncores", 
-                    "source": "#nthreads", 
-                    "source_arg": "nthreads", 
-                    "step_name": "cool2mcool"
+                    "source": "#nthreads"
                 }, 
                 {
                     "arg_name": "chunksize", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cool2mcool/chunksize", 
-                    "name": "cool2mcool.chunksize", 
-                    "source": "#chunksize", 
-                    "source_arg": "chunksize", 
-                    "step_name": "cool2mcool"
+                    "source": "#chunksize"
                 }, 
                 {
                     "arg_name": "juicer_res", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cool2mcool/juicer_res", 
-                    "name": "cool2mcool.juicer_res", 
-                    "source": "#juicer_res", 
-                    "source_arg": "juicer_res", 
-                    "step_name": "cool2mcool"
+                    "source": "#juicer_res"
                 }, 
                 {
                     "arg_name": "custom_res", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cool2mcool/custom_res", 
-                    "name": "cool2mcool.custom_res", 
-                    "source": "#custom_res", 
-                    "source_arg": "custom_res", 
-                    "step_name": "cool2mcool"
+                    "source": "#custom_res"
                 }, 
                 {
                     "arg_name": "no_balance", 
                     "fdn_cardinality": "single", 
                     "fdn_type": "parameter", 
                     "id": "#cool2mcool/no_balance", 
-                    "name": "cool2mcool.no_balance", 
-                    "source": "#no_balance", 
-                    "source_arg": "no_balance", 
-                    "step_name": "cool2mcool"
+                    "source": "#no_balance"
                 }
             ], 
-            "name": "cool2mcool", 
             "out": [
                 {
                     "arg_name": "mcool", 
                     "fdn_cardinality": "single", 
                     "fdn_format": "mcool", 
                     "fdn_type": "data file", 
-                    "id": "#cool2mcool/mcool", 
-                    "name": "cool2mcool.mcool", 
-                    "step_name": "cool2mcool"
+                    "id": "#cool2mcool/mcool"
                 }
             ], 
             "run": "cool2mcool.cwl"
