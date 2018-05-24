@@ -37,9 +37,6 @@
         {
           "source": "#input_file",
           "id": "#validatefiles.input_file"
-        },
-        {
-          "id": "#validatefiles.type"
         }
       ]
     }
