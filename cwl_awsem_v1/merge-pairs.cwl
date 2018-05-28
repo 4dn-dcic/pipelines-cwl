@@ -1,63 +1,29 @@
-{
-  "outputs": [
-    {
-      "id": "#merged_pairs",
-      "type": [
-        "null",
-        "File"
-      ],
-      "secondaryFiles": [
-        ".px2"
-      ],
-      "outputBinding": {
-        "glob": "$(inputs.outprefix + '.pairs.gz')"
-      }
-    }
-  ],
-  "baseCommand": [
-    "run-merge-pairs.sh"
-  ],
-  "hints": [
-    {
-      "dockerPull": "duplexa/4dn-hic:v42.1",
-      "class": "DockerRequirement"
-    }
-  ],
-  "cwlVersion": "v1.0",
-  "class": "CommandLineTool",
-  "arguments": [],
-  "inputs": [
-    {
-      "id": "#outprefix",
-      "inputBinding": {
-        "position": 1,
-        "separate": true
-      },
-      "default": "out",
-      "type": [
-        "null",
-        "string"
-      ]
-    },
-    {
-      "id": "#input_pairs",
-      "inputBinding": {
-        "itemSeparator": " ",
-        "position": 2,
-        "separate": true
-      },
-      "type": [
-        "null",
-        {
-          "items": "File",
-          "type": "array"
-        }
-      ]
-    }
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ]
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/4dn-hic:v42.1
+inputs:
+  outprefix:
+    type: string?
+    default: out
+    inputBinding:
+      position: 1
+      separate: true
+  input_pairs:
+    type: File[]?
+    inputBinding:
+      position: 2
+      itemSeparator: ' '
+      separate: true
+baseCommand: run-merge-pairs.sh
+outputs:
+  merged_pairs:
+    type: File?
+    secondaryFiles:
+    - .px2
+    outputBinding:
+      glob: $(inputs.outprefix + '.pairs.gz')
+

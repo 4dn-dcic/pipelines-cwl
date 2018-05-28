@@ -1,65 +1,30 @@
-{
-  "class": "CommandLineTool",
-  "outputs": [
-    {
-      "id": "#out_pairs",
-      "outputBinding": {
-        "glob": "*.bsorted.pairs.gz"
-      },
-      "type": [
-        "null",
-        "File"
-      ]
-    },
-    {
-      "id": "#out_pairs_index",
-      "outputBinding": {
-        "glob": "*.bsorted.pairs.gz.px2"
-      },
-      "type": [
-        "null",
-        "File"
-      ]
-    }
-  ],
-  "arguments": [],
-  "hints": [
-    {
-      "class": "DockerRequirement",
-      "dockerPull": "duplexa/bam2pairs:v1"
-    }
-  ],
-  "cwlVersion": "v1.0",
-  "baseCommand": [
-    "run.sh"
-  ],
-  "inputs": [
-    {
-      "type": [
-        "File"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 1
-      },
-      "id": "#input_bam"
-    },
-    {
-      "default": "out",
-      "type": [
-        "null",
-        "string"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 2
-      },
-      "id": "#out_prefix"
-    }
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ]
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/bam2pairs:v1
+inputs:
+  input_bam:
+    type: File
+    inputBinding:
+      position: 1
+      separate: true
+  out_prefix:
+    type: string?
+    default: out
+    inputBinding:
+      position: 2
+      separate: true
+baseCommand: run.sh
+outputs:
+  out_pairs:
+    type: File?
+    outputBinding:
+      glob: '*.bsorted.pairs.gz'
+  out_pairs_index:
+    type: File?
+    outputBinding:
+      glob: '*.bsorted.pairs.gz.px2'
+

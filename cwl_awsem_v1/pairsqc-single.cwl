@@ -1,97 +1,50 @@
-{
-  "arguments": [],
-  "cwlVersion": "v1.0",
-  "inputs": [
-    {
-      "type": [
-        "File"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 1
-      },
-      "secondaryFiles": [
-        ".px2"
-      ],
-      "id": "#input_pairs",
-      "fdn_secondary_file_formats": [
-        "pairs_px2"
-      ]
-    },
-    {
-      "type": [
-        "File"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 2
-      },
-      "id": "#chromsizes"
-    },
-    {
-      "type": [
-        "string"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 3
-      },
-      "id": "#sample_name"
-    },
-    {
-      "type": [
-        {
-          "name": "enzyme",
-          "type": "enum",
-          "symbols": [
-            "4",
-            "6"
-          ]
-        }
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 4
-      },
-      "id": "#enzyme"
-    },
-    {
-      "type": [
-        "string"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 5
-      },
-      "default": ".",
-      "id": "#output_dir"
-    }
-  ],
-  "hints": [
-    {
-      "class": "DockerRequirement",
-      "dockerPull": "duplexa/4dn-hic:v42.1"
-    }
-  ],
-  "class": "CommandLineTool",
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ],
-  "baseCommand": [
-    "run-pairsqc-single.sh"
-  ],
-  "outputs": [
-    {
-      "outputBinding": {
-        "glob": "$(inputs.output_dir + '/*report.zip')"
-      },
-      "type": [
-        "null",
-        "File"
-      ],
-      "id": "#report"
-    }
-  ]
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/4dn-hic:v42.1
+inputs:
+  input_pairs:
+    type: File
+    secondaryFiles:
+    - .px2
+    inputBinding:
+      position: 1
+      separate: true
+    fdn_secondary_file_formats:
+    - pairs_px2
+  chromsizes:
+    type: File
+    inputBinding:
+      position: 2
+      separate: true
+  sample_name:
+    type: string
+    inputBinding:
+      position: 3
+      separate: true
+  enzyme:
+    type:
+      type: enum
+      name: enzyme
+      symbols:
+      - '4'
+      - '6'
+    inputBinding:
+      position: 4
+      separate: true
+  output_dir:
+    type: string
+    default: .
+    inputBinding:
+      position: 5
+      separate: true
+baseCommand: run-pairsqc-single.sh
+outputs:
+  report:
+    type: File?
+    outputBinding:
+      glob: $(inputs.output_dir + '/*report.zip')
+

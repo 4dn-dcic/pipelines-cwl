@@ -1,65 +1,35 @@
-{
-  "class": "CommandLineTool",
-  "baseCommand": [
-    "run.sh",
-    ""
-  ],
-  "outputs": [
-    {
-      "id": "#report",
-      "outputBinding": {
-        "glob": "report_validatefiles"
-      },
-      "type": [
-        "null",
-        "File"
-      ]
-    }
-  ],
-  "hints": [
-    {
-      "class": "DockerRequirement",
-      "dockerPull": "duplexa/validatefiles:v1"
-    }
-  ],
-  "inputs": [
-    {
-      "id": "#input_file",
-      "inputBinding": {
-        "position": 1,
-        "separate": true
-      },
-      "type": [
-        "null",
-        "File"
-      ]
-    },
-    {
-      "id": "#type",
-      "inputBinding": {
-        "position": 2,
-        "separate": true
-      },
-      "type": [
-        "null",
-        {
-          "symbols": [
-            "fastq",
-            "fasta",
-            "bam"
-          ],
-          "name": "type",
-          "type": "enum"
-        }
-      ],
-      "default": "fastq"
-    }
-  ],
-  "cwlVersion": "v1.0",
-  "arguments": [],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ]
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/validatefiles:v1
+inputs:
+  input_file:
+    type: File?
+    inputBinding:
+      position: 1
+      separate: true
+  type:
+    type:
+    - 'null'
+    - type: enum
+      name: type
+      symbols:
+      - fastq
+      - fasta
+      - bam
+    default: fastq
+    inputBinding:
+      position: 2
+      separate: true
+baseCommand:
+- run.sh
+- ''
+outputs:
+  report:
+    type: File?
+    outputBinding:
+      glob: report_validatefiles
+

@@ -1,86 +1,44 @@
-{
-  "hints": [
-    {
-      "dockerPull": "duplexa/4dn-repliseq:v13",
-      "class": "DockerRequirement"
-    }
-  ],
-  "arguments": [],
-  "class": "CommandLineTool",
-  "inputs": [
-    {
-      "type": [
-        "File"
-      ],
-      "id": "#input_bam",
-      "inputBinding": {
-        "position": 1,
-        "separate": true
-      }
-    },
-    {
-      "type": [
-        "int"
-      ],
-      "id": "#nthreads",
-      "inputBinding": {
-        "position": 3,
-        "separate": true
-      },
-      "default": 1
-    },
-    {
-      "type": [
-        "string"
-      ],
-      "id": "#memperthread",
-      "inputBinding": {
-        "position": 2,
-        "separate": true
-      },
-      "default": "5G"
-    },
-    {
-      "type": [
-        "string"
-      ],
-      "id": "#outprefix",
-      "inputBinding": {
-        "position": 5,
-        "separate": true
-      },
-      "default": "out"
-    },
-    {
-      "type": [
-        "string"
-      ],
-      "id": "#outdir",
-      "inputBinding": {
-        "position": 4,
-        "separate": true
-      },
-      "default": "."
-    }
-  ],
-  "outputs": [
-    {
-      "type": [
-        "File"
-      ],
-      "id": "#out_filtered_sorted_bam",
-      "outputBinding": {
-        "glob": "$(inputs.outdir + '/' + inputs.outprefix + '.q20_sort.bam')"
-      }
-    }
-  ],
-  "baseCommand": [
-    "filtersort"
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ],
-  "cwlVersion": "v1.0"
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/4dn-repliseq:v13
+inputs:
+  input_bam:
+    type: File
+    inputBinding:
+      position: 1
+      separate: true
+  nthreads:
+    type: int
+    default: 1
+    inputBinding:
+      position: 3
+      separate: true
+  memperthread:
+    type: string
+    default: 5G
+    inputBinding:
+      position: 2
+      separate: true
+  outprefix:
+    type: string
+    default: out
+    inputBinding:
+      position: 5
+      separate: true
+  outdir:
+    type: string
+    default: .
+    inputBinding:
+      position: 4
+      separate: true
+baseCommand: filtersort
+outputs:
+  out_filtered_sorted_bam:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir + '/' + inputs.outprefix + '.q20_sort.bam')
+

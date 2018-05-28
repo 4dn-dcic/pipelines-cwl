@@ -1,79 +1,39 @@
-{
-  "outputs": [
-    {
-      "id": "#out_filtered_bed",
-      "type": [
-        "File"
-      ],
-      "outputBinding": {
-        "glob": "$(inputs.outdir + '/' + inputs.outprefix + '.filtered.bed')"
-      }
-    }
-  ],
-  "baseCommand": [
-    "make_filteredbed"
-  ],
-  "hints": [
-    {
-      "dockerPull": "duplexa/4dn-repliseq:v13",
-      "class": "DockerRequirement"
-    }
-  ],
-  "cwlVersion": "v1.0",
-  "class": "CommandLineTool",
-  "arguments": [],
-  "inputs": [
-    {
-      "id": "#outdir",
-      "inputBinding": {
-        "position": 1,
-        "separate": true
-      },
-      "default": ".",
-      "type": [
-        "string"
-      ]
-    },
-    {
-      "id": "#outprefix",
-      "inputBinding": {
-        "position": 2,
-        "separate": true
-      },
-      "default": "out",
-      "type": [
-        "string"
-      ]
-    },
-    {
-      "type": [
-        "float"
-      ],
-      "id": "#min_rpkm",
-      "inputBinding": {
-        "position": 3,
-        "separate": true
-      },
-      "default": 0.1
-    },
-    {
-      "id": "#input_bgs",
-      "inputBinding": {
-        "itemSeparator": " ",
-        "position": 4,
-        "separate": true
-      },
-      "type": [
-        {
-          "items": "File",
-          "type": "array"
-        }
-      ]
-    }
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ]
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/4dn-repliseq:v13
+inputs:
+  outdir:
+    type: string
+    default: .
+    inputBinding:
+      position: 1
+      separate: true
+  outprefix:
+    type: string
+    default: out
+    inputBinding:
+      position: 2
+      separate: true
+  min_rpkm:
+    type: float
+    default: 0.1
+    inputBinding:
+      position: 3
+      separate: true
+  input_bgs:
+    type: File[]
+    inputBinding:
+      position: 4
+      itemSeparator: ' '
+      separate: true
+baseCommand: make_filteredbed
+outputs:
+  out_filtered_bed:
+    type: File
+    outputBinding:
+      glob: $(inputs.outdir + '/' + inputs.outprefix + '.filtered.bed')
+

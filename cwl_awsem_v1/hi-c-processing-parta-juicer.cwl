@@ -1,192 +1,54 @@
-{
-    "class": "Workflow", 
-    "cwlVersion": "v1.0", 
-    "inputs": [
-        {
-            "id": "#fastq1", 
-            "type": [
-                "File"
-            ]
-        }, 
-        {
-            "id": "#fastq2", 
-            "type": [
-                "File"
-            ]
-        }, 
-        {
-            "id": "#bwa_index", 
-            "type": [
-                "File"
-            ]
-        }, 
-        {
-            "id": "#chrsizes", 
-            "type": [
-                "null", 
-                "File"
-            ]
-        }, 
-        {
-            "id": "#reference_fasta", 
-            "type": [
-                "null", 
-                "File"
-            ]
-        }, 
-        {
-            "id": "#restriction_file", 
-            "type": [
-                "null", 
-                "File"
-            ]
-        }, 
-        {
-            "default": 8, 
-            "id": "#ncores", 
-            "type": [
-                "null", 
-                "int"
-            ]
-        }, 
-        {
-            "default": 100, 
-            "id": "#nsplit", 
-            "type": [
-                "null", 
-                "int"
-            ]
-        }, 
-        {
-            "id": "#max_remove_mapq", 
-            "type": [
-                "null", 
-                "int"
-            ]
-        }
-    ], 
-    "outputs": [
-        {
-            "id": "#out_pairs", 
-            "outputSource": "#juicer2pairs/out_pairs", 
-            "type": [
-                "null", 
-                "File"
-            ]
-        }, 
-        {
-            "id": "#out_pairs_index", 
-            "outputSource": "#juicer2pairs/out_pairs_px", 
-            "type": [
-                "null", 
-                "File"
-            ]
-        }, 
-        {
-            "id": "#merged_nodups", 
-            "outputSource": "#juicer/merged_nodups", 
-            "type": [
-                "null", 
-                "File"
-            ]
-        }
-    ], 
-    "requirements": [
-        {
-            "class": "InlineJavascriptRequirement"
-        }
-    ], 
-    "steps": [
-        {
-            "id": "#juicer", 
-            "in": [
-                {
-                    "arg_name": "input_fastq1", 
-                    "id": "#juicer/input_fastq1", 
-                    "source": "#fastq1"
-                }, 
-                {
-                    "arg_name": "input_fastq2", 
-                    "id": "#juicer/input_fastq2", 
-                    "source": "#fastq2"
-                }, 
-                {
-                    "arg_name": "bwaIndex", 
-                    "id": "#juicer/bwaIndex", 
-                    "source": "#bwa_index"
-                }, 
-                {
-                    "arg_name": "reference_fasta", 
-                    "id": "#juicer/reference_fasta", 
-                    "source": "#reference_fasta"
-                }, 
-                {
-                    "arg_name": "chromsizes_file", 
-                    "id": "#juicer/chromsizes_file", 
-                    "source": "#chrsizes"
-                }, 
-                {
-                    "arg_name": "restriction_file", 
-                    "id": "#juicer/restriction_file", 
-                    "source": "#restriction_file"
-                }, 
-                {
-                    "arg_name": "outdir", 
-                    "id": "#juicer/outdir"
-                }, 
-                {
-                    "arg_name": "ncores", 
-                    "id": "#juicer/ncores", 
-                    "source": "#ncores"
-                }
-            ], 
-            "out": [
-                {
-                    "arg_name": "merged_nodups", 
-                    "id": "#juicer/merged_nodups"
-                }
-            ], 
-            "run": "juicer.cwl"
-        }, 
-        {
-            "id": "#juicer2pairs", 
-            "in": [
-                {
-                    "arg_name": "input_merged_nodups", 
-                    "id": "#juicer2pairs/input_merged_nodups", 
-                    "source": "#juicer/merged_nodups"
-                }, 
-                {
-                    "arg_name": "chromsize", 
-                    "id": "#juicer2pairs/chromsize", 
-                    "source": "#chrsizes"
-                }, 
-                {
-                    "arg_name": "nsplit", 
-                    "id": "#juicer2pairs/nsplit", 
-                    "source": "#nsplit"
-                }, 
-                {
-                    "arg_name": "outprefix", 
-                    "id": "#juicer2pairs/outprefix"
-                }, 
-                {
-                    "arg_name": "max_remove_mapq", 
-                    "id": "#juicer2pairs/max_remove_mapq", 
-                    "source": "#max_remove_mapq"
-                }
-            ], 
-            "out": [
-                {
-                    "arg_name": "out_pairs", 
-                    "id": "#juicer2pairs/out_pairs"
-                }, 
-                {
-                    "arg_name": "out_pairs_px", 
-                    "id": "#juicer2pairs/out_pairs_px"
-                }
-            ], 
-            "run": "juicer2pairs.cwl"
-        }
-    ]
-}
+cwlVersion: v1.0
+class: Workflow
+requirements:
+  InlineJavascriptRequirement: {}
+inputs:
+  fastq1: File
+  fastq2: File
+  bwa_index: File
+  chrsizes: File?
+  reference_fasta: File?
+  restriction_file: File?
+  ncores:
+    type: int?
+    default: 8
+  nsplit:
+    type: int?
+    default: 100
+  max_remove_mapq: int?
+steps:
+  juicer:
+    run: juicer.cwl
+    out:
+    - merged_nodups
+    in:
+      input_fastq1: fastq1
+      input_fastq2: fastq2
+      bwaIndex: bwa_index
+      reference_fasta: reference_fasta
+      chromsizes_file: chrsizes
+      restriction_file: restriction_file
+      outdir: {}
+      ncores: ncores
+  juicer2pairs:
+    run: juicer2pairs.cwl
+    out:
+    - out_pairs
+    - out_pairs_px
+    in:
+      input_merged_nodups: juicer/merged_nodups
+      chromsize: chrsizes
+      nsplit: nsplit
+      outprefix: {}
+      max_remove_mapq: max_remove_mapq
+outputs:
+  out_pairs:
+    type: File?
+    outputSource: juicer2pairs/out_pairs
+  out_pairs_index:
+    type: File?
+    outputSource: juicer2pairs/out_pairs_px
+  merged_nodups:
+    type: File?
+    outputSource: juicer/merged_nodups
+

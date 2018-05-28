@@ -1,105 +1,50 @@
-{
-  "baseCommand": [
-    "run-cooler.sh"
-  ],
-  "inputs": [
-    {
-      "type": [
-        "null",
-        "File"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 1
-      },
-      "secondaryFiles": [
-        "$(self.basename + '.px2')"
-      ],
-      "id": "#pairs"
-    },
-    {
-      "type": [
-        "null",
-        "File"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 2
-      },
-      "id": "#chrsizes"
-    },
-    {
-      "type": [
-        "null",
-        "int"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 3
-      },
-      "id": "#binsize"
-    },
-    {
-      "default": "out",
-      "type": [
-        "null",
-        "string"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 5
-      },
-      "id": "#outprefix"
-    },
-    {
-      "default": 8,
-      "type": [
-        "null",
-        "int"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 4
-      },
-      "id": "#ncores"
-    },
-    {
-      "default": 2,
-      "type": [
-        "null",
-        "int"
-      ],
-      "inputBinding": {
-        "separate": true,
-        "position": 6
-      },
-      "id": "#max_split"
-    }
-  ],
-  "outputs": [
-    {
-      "outputBinding": {
-        "glob": "*.cool"
-      },
-      "type": [
-        "null",
-        "File"
-      ],
-      "id": "#cool"
-    }
-  ],
-  "cwlVersion": "v1.0",
-  "hints": [
-    {
-      "dockerPull": "duplexa/4dn-hic:v42.1",
-      "class": "DockerRequirement"
-    }
-  ],
-  "requirements": [
-    {
-      "class": "InlineJavascriptRequirement"
-    }
-  ],
-  "arguments": [],
-  "class": "CommandLineTool"
-}
+cwlVersion: v1.0
+class: CommandLineTool
+requirements:
+  InlineJavascriptRequirement: {}
+hints:
+  DockerRequirement:
+    dockerPull: duplexa/4dn-hic:v42.1
+inputs:
+  pairs:
+    type: File?
+    secondaryFiles:
+    - $(self.basename + '.px2')
+    inputBinding:
+      position: 1
+      separate: true
+  chrsizes:
+    type: File?
+    inputBinding:
+      position: 2
+      separate: true
+  binsize:
+    type: int?
+    inputBinding:
+      position: 3
+      separate: true
+  outprefix:
+    type: string?
+    default: out
+    inputBinding:
+      position: 5
+      separate: true
+  ncores:
+    type: int?
+    default: 8
+    inputBinding:
+      position: 4
+      separate: true
+  max_split:
+    type: int?
+    default: 2
+    inputBinding:
+      position: 6
+      separate: true
+baseCommand: run-cooler.sh
+outputs:
+  cool:
+    type: File?
+    outputBinding:
+      glob: '*.cool'
+
