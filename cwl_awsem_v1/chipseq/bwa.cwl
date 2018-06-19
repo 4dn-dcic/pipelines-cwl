@@ -1,9 +1,10 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
+# and then extensively modified by Soo Lee
 
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_bwa.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -36,37 +37,40 @@
     "inputs": [
         {
             "type": "File",
-            "id": "idx_tar"
+            "id": "idx_tar",
+            "inputBinding": {
+              "position": 1
+            }
         },
         {
-            "type": "File[]",
-            "id": "fastqs"
+           "type": {
+                "type": "array",
+                "items": "File"
+            },
+            "id": "fastqs",
+            "inputBinding": {
+                "position": 2
+            }
         },
         {
             "type": "boolean",
-            "id": "paired_end"
+            "id": "paired_end",
+            "default": false,
+            "inputBinding": {
+                "position": 3,
+                "separate": true,
+                "prefix": "--paired-end"
+            }
         },
         {
-            "type": "int?",
-            "id": "cpu"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "${            var fastqs_separated = '';            for (var i=0; i<inputs.fastqs.length; i++){                fastqs_separated = fastqs_separated + inputs.fastqs[i].path + ' ';            }            fastqs_separated = fastqs_separated.replace(/ $/, '');            return \"\t\tpython \" + which encode_bwa.py + \" \" + inputs.idx_tar.path + \" \" + fastqs_separated + \" \" + \"--nth \" + inputs.cpu + \"\t\"}"
+            "type": "int",
+            "id": "cpu",
+            "default": 4,
+            "inputBinding": {
+                "position": 4,
+                "separate": true,
+                "prefix": "--nth"
+            }
         }
     ],
     "id": "bwa",

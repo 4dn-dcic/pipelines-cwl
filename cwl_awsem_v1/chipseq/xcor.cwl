@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_xcor.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -36,37 +36,40 @@
     "inputs": [
         {
             "type": "File",
-            "id": "ta"
+            "id": "ta",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "boolean",
-            "id": "paired_end"
+            "id": "paired_end",
+            "default": false,
+            "inputBinding": {
+                "position": 2,
+                "separate": true,
+                "prefix": "--paired-end"
+            }
         },
         {
-            "type": "int?",
-            "id": "subsample"
+            "type": "int",
+            "id": "cpu",
+            "default": 2,
+            "inputBinding": {
+                "position": 3,
+                "separate": true,
+                "prefix": "--nth"
+            }
         },
         {
-            "type": "int?",
-            "id": "cpu"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_xcor.py) $(inputs.ta.path) $(\"--subsample \" + inputs.subsample) $(\"--nth \" + inputs.cpu)"
+            "type": "int",
+            "id": "subsample",
+            "default": 15000000,
+            "inputBinding": {
+                "position": 4,
+                "separate": true,
+                "prefix": "--subsample"
+            }
         }
     ],
     "id": "xcor",

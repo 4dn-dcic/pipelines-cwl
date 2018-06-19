@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_filter.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -12,16 +12,10 @@
                 ]
             },
             "type": "File",
-            "id": "nodup_bam"
-        },
-        {
-            "outputBinding": {
-                "glob": [
-                    "*.bai"
-                ]
-            },
-            "type": "File",
-            "id": "nodup_bai"
+            "id": "nodup_bam",
+            "secondaryFiles": [
+              ".bai"
+            ]
         },
         {
             "outputBinding": {
@@ -36,49 +30,68 @@
     "inputs": [
         {
             "type": "File",
-            "id": "bam"
+            "id": "bam",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "boolean",
-            "id": "paired_end"
+            "id": "paired_end",
+            "default": false,
+            "inputBinding": {
+                "position": 2,
+                "separate": true,
+                "prefix": "--paired-end"
+            }
         },
         {
-            "type": "int?",
-            "id": "multimapping"
+            "type": "int",
+            "id": "cpu",
+            "inputBinding": {
+                "position": 3,
+                "separate": true,
+                "prefix": "--nth"
+            }
         },
         {
-            "type": "string?",
-            "id": "dup_marker"
+            "type": "boolean",
+            "id": "multimapping",
+            "inputBinding": {
+                "position": 4,
+                "separate": true,
+                "prefix": "--multimapping"
+            }
         },
         {
-            "type": "int?",
-            "id": "mapq_thresh"
+            "type": "boolean",
+            "id": "dup_marker",
+            "default": 'picard',
+            "inputBinding": {
+                "position": 5,
+                "separate": true,
+                "prefix": "--dup-marker"
+            }
         },
         {
-            "type": "boolean?",
-            "id": "no_dup_removal"
+            "type": "boolean",
+            "id": "mapq_thresh",
+            "default": 30,
+            "inputBinding": {
+                "position": 6,
+                "separate": true,
+                "prefix": "--mapq-thresh"
+            }
         },
         {
-            "type": "int?",
-            "id": "cpu"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_filter.py) $(inputs.bam.path) $(\"--multimapping \" + inputs.multimapping) $(\"--dup-marker \" + inputs.dup_marker) $(\"--mapq-thresh \" + inputs.mapq_thresh) $(\"--nth \" + inputs.cpu)\t\t# ugly part to deal with optional outputs with Google JES backend\t\ttouch null"
+            "type": "boolean",
+            "id": "no_dup_removal",
+            "default": false,
+            "inputBinding": {
+                "position": 7,
+                "separate": true,
+                "prefix": "--no-dup-removal"
+            }
         }
     ],
     "id": "filter",

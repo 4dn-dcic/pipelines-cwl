@@ -1,14 +1,15 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
+# and then extensively modified by Soo Lee
 
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_trim_fastq.py"],
     "outputs": [
         {
             "outputBinding": {
                 "glob": [
-                    "*.fastq.gz"
+                    "trimmed.fastq.gz"
                 ]
             },
             "type": "File",
@@ -18,17 +19,20 @@
     "inputs": [
         {
             "type": "File",
-            "id": "fastq"
+            "id": "fastq",
+            "inputBinding": {
+              "position": 2
+            }
         },
         {
-            "type": "int?",
+            "type": "int",
             "id": "trim_bp"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_trim_fastq.py) $(inputs.fastq.path) --trim-bp $(inputs.trip_bp)"
+            "default": 50,
+            "inputBinding": {
+              "position": 1,
+              "prefix": "--trim-bp",
+              "separate": true
+            }
         }
     ],
     "id": "trim_fastq",

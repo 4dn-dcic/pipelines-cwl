@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_idr.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -62,54 +62,98 @@
     ],
     "inputs": [
         {
-            "type": "string?",
-            "id": "prefix"
+            "type": "File",
+            "id": "peak1",
+            "inputBinding": {
+                "position": 1,
+            }
         },
         {
             "type": "File",
-            "id": "peak1"
+            "id": "peak2",
+            "inputBinding": {
+                "position": 2,
+            }
         },
         {
             "type": "File",
-            "id": "peak2"
+            "id": "peak_pooled",
+            "inputBinding": {
+                "position": 3,
+            }
         },
         {
-            "type": "File",
-            "id": "peak_pooled"
+            "type": "string",
+            "id": "prefix",
+            "inputBinding": {
+                "position": 4,
+                "prefix": "--prefix",
+                "separate": true
+            }
         },
         {
-            "type": "float?",
-            "id": "idr_thresh"
+            "type": "float",
+            "id": "idr_thresh",
+            "default": 0.05,
+            "inputBinding": {
+                "position": 5,
+                "prefix": "--idr-thresh",
+                "separate": true
+            }
         },
         {
-            "type": "File",
-            "id": "blacklist"
-        },
-        {
-            "type": "File?",
-            "id": "ta"
+            "type": "float",
+            "id": "peak_type",
+            "inputBinding": {
+                "position": 6,
+                "prefix": "--peak-type",
+                "separate": true
+            }
         },
         {
             "type": "int",
-            "id": "fraglen"
+            "id": "fraglen",
+            "inputBinding": {
+                "position": 7,
+                "prefix": "--fraglen",
+                "separate": true
+            }
         },
         {
             "type": "File",
-            "id": "chrsz"
+            "id": "chrsz",
+            "inputBinding": {
+                "position": 8,
+                "prefix": "--chrsz",
+                "separate": true
+            }
+        },
+        {
+            "type": "File",
+            "id": "blacklist",
+            "inputBinding": {
+                "position": 9,
+                "prefix": "--blacklist",
+                "separate": true
+            }
+        },
+        {
+            "type": "File?",
+            "id": "ta",
+            "inputBinding": {
+                "position": 10,
+                "prefix": "--ta",
+                "separate": true
+            }
         },
         {
             "type": "string",
-            "id": "peak_type"
-        },
-        {
-            "type": "string",
-            "id": "rank"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_idr.py) $(inputs.peak1.path) $(inputs.peak2.path) $(inputs.peak_pooled.path) $(\"--prefix \" + inputs.prefix) $(\"--idr-thresh \" + inputs.idr_thresh) $(\"--peak-type \" + inputs.peak_type) --idr-rank $(inputs.rank) $(\"--fraglen \" + inputs.fraglen) $(\"--chrsz \" + inputs.chrsz.path) $(\"--blacklist \" + inputs.blacklist.path) $(\"--ta \" + inputs.ta)\t\t# ugly part to deal with optional outputs with Google backend\t\ttouch null"
+            "id": "rank",
+            "inputBinding": {
+                "position": 11,
+                "prefix": "--idr-rank",
+                "separate": true
+            }
         }
     ],
     "id": "idr",

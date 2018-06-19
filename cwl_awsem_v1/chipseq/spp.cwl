@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_spp.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -44,46 +44,61 @@
     ],
     "inputs": [
         {
-            "type": "File[]",
-            "id": "tas"
+           "type": {
+                "type": "array",
+                "items": "File"
+            },
+            "id": "tas",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "int",
-            "id": "fraglen"
+            "id": "fraglen",
+            "inputBinding": {
+                "position": 2,
+                "prefix": "--fraglen",
+                "separate": true
+            }
         },
         {
             "type": "File",
             "id": "chrsz"
+            "inputBinding": {
+                "position": 3,
+                "prefix": "--chrsz",
+                "separate": true
+            }
         },
         {
-            "type": "int?",
+            "type": "int",
             "id": "cap_num_peak"
+            "default": 300000,
+            "inputBinding": {
+                "position": 4,
+                "prefix": "--cap-num-peak ",
+                "separate": true
+            }
         },
         {
             "type": "File",
             "id": "blacklist"
+            "inputBinding": {
+                "position": 5,
+                "prefix": "--blacklist",
+                "separate": true
+            }
         },
         {
-            "type": "int?",
-            "id": "cpu"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "${            var tas_separated = '';            for (var i=0; i<inputs.tas.length; i++){                tas_separated = tas_separated + inputs.tas[i].path + ' ';            }            tas_separated = tas_separated.replace(/ $/, '');            return \"\t\tpython \" + which encode_spp.py + \" \" + tas_separated + \" \" + \"--chrsz \" + inputs.chrsz.path + \" \" + \"--fraglen \" + inputs.fraglen + \" \" + \"--cap-num-peak \" + inputs.cap_num_peak + \" \" + \"--nth \" + inputs.cpu + \" \" + \"--blacklist \" + inputs.blacklist.path + \"\t\"}"
+            "type": "int",
+            "id": "cpu",
+            "default": 2,
+            "inputBinding": {
+                "position": 6,
+                "prefix": "--nth",
+                "separate": true
+            }
         }
     ],
     "id": "spp",

@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_choose_ctl.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -17,34 +17,64 @@
     ],
     "inputs": [
         {
-            "type": "File[]",
-            "id": "tas"
+           "type": {
+                "type": "array",
+                "items": "File"
+            },
+            "id": "tas",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
-            "type": "File[]",
-            "id": "ctl_tas"
+           "type": {
+                "type": "array",
+                "items": "File"
+            },
+            "id": "ctl_tas",
+            "inputBinding": {
+                "position": 2,
+                "prefix": "--ctl-bam",
+                "separate": true
+            }
         },
         {
-            "type": "File?",
-            "id": "ta_pooled"
+            "type": "File",
+            "id": "ta_pooled",
+            "inputBinding": {
+                "position": 3,
+                "prefix": "--ta-pooled",
+                "separate": true
+            }
         },
         {
-            "type": "File?",
-            "id": "ctl_ta_pooled"
+            "type": "File",
+            "id": "ctl_ta_pooled",
+            "inputBinding": {
+                "position": 4,
+                "prefix": "--ctl-ta-pooled",
+                "separate": true
+            }
         },
         {
-            "type": "boolean?",
-            "id": "always_use_pooled_ctl"
+            "type": "boolean",
+            "id": "always_use_pooled_ctl",
+            "default": false,
+            "inputBinding": {
+                "position": 5,
+                "prefix": "--always-use-pooled-ctl",
+                "separate": true
+            }
         },
         {
-            "type": "float?",
-            "id": "ctl_depth_ratio"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "${            var tas_separated = '';            for (var i=0; i<inputs.tas.length; i++){                tas_separated = tas_separated + inputs.tas[i].path + ' ';            }            tas_separated = tas_separated.replace(/ $/, '');                        var ctl_tas_separated = '';            for (var i=0; i<inputs.ctl_tas.length; i++){                ctl_tas_separated = ctl_tas_separated + inputs.ctl_tas[i].path + ' ';            }            ctl_tas_separated = ctl_tas_separated.replace(/ $/, '');            return \"\t\tpython \" + which encode_choose_ctl.py + \" --tas \" + tas_separated + \" --ctl-tas \" + ctl_tas_separated + \" \" + \"--ta-pooled \" + inputs.ta_pooled + \" \" + \"--ctl-ta-pooled \" + inputs.ctl_ta_pooled + \" \" + \"--ctl-depth-ratio \" + inputs.ctl_depth_ratio + \"\t\"}"
+            "type": "float",
+            "id": "ctl_depth_ratio",
+            "default": 1.2,
+            "inputBinding": {
+                "position": 6,
+                "prefix": "--ctl-depth-ratio",
+                "separate": true
+            }
         }
     ],
     "id": "choose_ctl",

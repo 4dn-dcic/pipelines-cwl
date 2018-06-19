@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_spr.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -27,21 +27,20 @@
     "inputs": [
         {
             "type": "File",
-            "id": "ta"
+            "id": "ta",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "boolean",
-            "id": "paired_end"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_spr.py) $(inputs.ta.path)"
+            "id": "paired_end",
+            "default": false,
+            "inputBinding": {
+                "position": 2,
+                "separate": true,
+                "prefix": "--paired-end"
+            }
         }
     ],
     "id": "spr",

@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_pool_ta.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -17,14 +17,14 @@
     ],
     "inputs": [
         {
-            "type": "File[]",
-            "id": "tas"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "${            var tas_separated = '';            for (var i=0; i<inputs.tas.length; i++){                tas_separated = tas_separated + inputs.tas[i].path + ' ';            }            tas_separated = tas_separated.replace(/ $/, '');            return \"\t\tpython \" + which encode_pool_ta.py + \" \" + tas_separated + \"\t\"}"
+           "type": {
+                "type": "array",
+                "items": "File"
+            },
+            "id": "tas",
+            "inputBinding": {
+                "position": 2
+            }
         }
     ],
     "id": "pool_ta",

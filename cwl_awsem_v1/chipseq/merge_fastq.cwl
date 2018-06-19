@@ -1,56 +1,51 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
+# and then extensively modified by Soo Lee
 
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_merge_fastq.py"],
     "outputs": [
         {
             "outputBinding": {
                 "glob": [
-                    "merge_fastqs_R?_*.fastq.gz"
+                    "merge_fastqs_R1.fastq.gz"
                 ]
             },
-            "type": "File[]",
-            "id": "merged_fastqs"
+            "type": "File",
+            "id": "merged_fastq"
         }
     ],
     "inputs": [
         {
             "type": {
                 "type": "array",
-                "items": {
-                    "type": "array",
-                    "items": "File"
-                }
+                "items": "File"
             },
-            "id": "fastqs"
+            "id": "fastqs",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "boolean",
-            "id": "paired_end"
+            "id": "paired_end",
+            "default": false,
+            "inputBinding": {
+                "position": 1,
+                "separate": true,
+                "prefix": "--paired-end"
+            }
         },
         {
-            "type": "int?",
-            "id": "cpu"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_merge_fastq.py) $(\"--nth \" + inputs.cpu)"
+            "type": "int",
+            "id": "cpu",
+            "default": 2,
+            "inputBinding": {
+                "position": 2,
+                "separate": true,
+                "prefix": "--nth"
+            }
         }
     ],
     "id": "merge_fastq",

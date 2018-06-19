@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": [encode_naive_overlap.py],
     "outputs": [
         {
             "outputBinding": {
@@ -35,46 +35,79 @@
     ],
     "inputs": [
         {
+            "type": "File",
+            "id": "peak1",
+            "inputBinding": {
+                "position": 1,
+            }
+        },
+        {
+            "type": "File",
+            "id": "peak2",
+            "inputBinding": {
+                "position": 2,
+            }
+        },
+        {
+            "type": "File",
+            "id": "peak_pooled",
+            "inputBinding": {
+                "position": 3,
+            }
+        },
+        {
             "type": "string",
-            "id": "prefix"
+            "id": "prefix",
+            "inputBinding": {
+                "position": 4,
+                "prefix": "--prefix",
+                "separate": true
+            }
         },
         {
-            "type": "File",
-            "id": "peak1"
-        },
-        {
-            "type": "File",
-            "id": "peak2"
-        },
-        {
-            "type": "File",
-            "id": "peak_pooled"
-        },
-        {
-            "type": "File",
-            "id": "blacklist"
-        },
-        {
-            "type": "File?",
-            "id": "ta"
+            "type": "float",
+            "id": "peak_type",
+            "inputBinding": {
+                "position": 5,
+                "prefix": "--peak-type",
+                "separate": true
+            }
         },
         {
             "type": "int",
-            "id": "fraglen"
+            "id": "fraglen",
+            "inputBinding": {
+                "position": 6,
+                "prefix": "--fraglen",
+                "separate": true
+            }
         },
         {
             "type": "File",
-            "id": "chrsz"
+            "id": "chrsz",
+            "inputBinding": {
+                "position": 7,
+                "prefix": "--chrsz",
+                "separate": true
+            }
         },
         {
-            "type": "string",
-            "id": "peak_type"
-        }
-    ],
-    "arguments": [
+            "type": "File",
+            "id": "blacklist",
+            "inputBinding": {
+                "position": 8,
+                "prefix": "--blacklist",
+                "separate": true
+            }
+        },
         {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_naive_overlap.py) $(inputs.peak1.path) $(inputs.peak2.path) $(inputs.peak_pooled.path) $(\"--prefix \" + inputs.prefix) $(\"--peak-type \" + inputs.peak_type) $(\"--fraglen \" + inputs.fraglen) $(\"--chrsz \" + inputs.chrsz.path) $(\"--blacklist \" + inputs.blacklist.path) $(\"--ta \" + inputs.ta)\t\t# ugly part to deal with optional outputs with Google backend\t\ttouch null"
+            "type": "File",
+            "id": "ta",
+            "inputBinding": {
+                "position": 9,
+                "prefix": "--ta",
+                "separate": true
+            }
         }
     ],
     "id": "overlap",

@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": [encode_bam2ta.py],
     "outputs": [
         {
             "outputBinding": {
@@ -18,45 +18,59 @@
     "inputs": [
         {
             "type": "File",
-            "id": "bam"
+            "id": "bam",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "boolean",
-            "id": "paired_end"
+            "id": "paired_end",
+            "default": false,
+            "inputBinding": {
+                "position": 2,
+                "separate": true,
+                "prefix": "--paired-end"
+            }
+        },
+        {
+            "type": "int",
+            "id": "cpu",
+            "inputBinding": {
+                "position": 3,
+                "separate": true,
+                "prefix": "--nth"
+            }
+        },
+        {
+            "type": "string",
+            "id": "regex_grep_v_ta",
+            "default": 'chrM',
+            "inputBinding": {
+                "position": 4,
+                "separate": true,
+                "prefix": "--regex-grep-v-ta"
+            }
+        },
+        {
+            "type": "int",
+            "id": "subsample",
+            "default": 0,
+            "inputBinding": {
+                "position": 5,
+                "separate": true,
+                "prefix": "--subsample"
+            }
         },
         {
             "type": "boolean",
-            "id": "disable_tn5_shift"
-        },
-        {
-            "type": "string?",
-            "id": "regex_grep_v_ta"
-        },
-        {
-            "type": "int?",
-            "id": "subsample"
-        },
-        {
-            "type": "int?",
-            "id": "cpu"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "python $(which encode_bam2ta.py) $(inputs.bam.path) $(\"--regex-grep-v-ta \" + \"'\" + inputs.regex_grep_v_ta + \"'\") $(\"--subsample \" + inputs.subsample) $(\"--nth \" + inputs.cpu)"
+            "id": "disable_tn5_shift",
+            "default": false,
+            "inputBinding": {
+                "position": 6,
+                "separate": true,
+                "prefix": "--disable-tn5-shift"
+            }
         }
     ],
     "id": "bam2ta",

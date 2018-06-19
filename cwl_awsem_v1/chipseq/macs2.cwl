@@ -1,9 +1,9 @@
 #!/usr/bin/env cwl-runner
 # This tool description was generated automatically by wdl2cwl ver. 0.2
-
+# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [],
+    "baseCommand": ["encode_macs2_chip.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -44,54 +44,80 @@
     ],
     "inputs": [
         {
-            "type": "File[]",
-            "id": "tas"
+           "type": {
+                "type": "array",
+                "items": "File"
+            },
+            "id": "tas",
+            "inputBinding": {
+                "position": 1
+            }
         },
         {
             "type": "int",
-            "id": "fraglen"
+            "id": "fraglen",
+            "inputBinding": {
+                "position": 2,
+                "prefix": "--fraglen",
+                "separate": true
+            }
         },
         {
             "type": "string",
             "id": "gensz"
+            "inputBinding": {
+                "position": 3,
+                "prefix": "--gensz",
+                "separate": true
+            }
         },
         {
             "type": "File",
             "id": "chrsz"
+            "inputBinding": {
+                "position": 4,
+                "prefix": "--chrsz",
+                "separate": true
+            }
         },
         {
-            "type": "int?",
+            "type": "int",
             "id": "cap_num_peak"
+            "default": 500000,
+            "inputBinding": {
+                "position": 5,
+                "prefix": "--cap-num-peak ",
+                "separate": true
+            }
         },
         {
-            "type": "float?",
+            "type": "float",
             "id": "pval_thresh"
+            "default": 0.01,
+            "inputBinding": {
+                "position": 6,
+                "prefix": "--pval-thresh",
+                "separate": true
+            }
         },
         {
-            "type": "boolean?",
+            "type": "boolean",
             "id": "make_signal"
+            "default": false,
+            "inputBinding": {
+                "position": 7,
+                "prefix": "--make-signal",
+                "separate": true
+            }
         },
         {
             "type": "File",
             "id": "blacklist"
-        },
-        {
-            "type": "int?",
-            "id": "mem_mb"
-        },
-        {
-            "type": "int?",
-            "id": "time_hr"
-        },
-        {
-            "type": "string?",
-            "id": "disks"
-        }
-    ],
-    "arguments": [
-        {
-            "shellQuote": false,
-            "valueFrom": "${            var tas_separated = '';            for (var i=0; i<inputs.tas.length; i++){                tas_separated = tas_separated + inputs.tas[i].path + ' ';            }            tas_separated = tas_separated.replace(/ $/, '');            return \"\t\tpython \" + which encode_macs2_chip.py + \" \" + tas_separated + \" \" + \"--gensz \" + inputs.gensz + \" \" + \"--chrsz \" + inputs.chrsz.path + \" \" + \"--fraglen \" + inputs.fraglen + \" \" + \"--cap-num-peak \" + inputs.cap_num_peak + \" \" + \"--pval-thresh \" + inputs.pval_thresh + \" \" + \"--blacklist \" + inputs.blacklist.path + \"\t\ttouch null # ugly part to deal with optional outputs\t\"}"
+            "inputBinding": {
+                "position": 8,
+                "prefix": "--blacklist",
+                "separate": true
+            }
         }
     ],
     "id": "macs2",
