@@ -1,6 +1,3 @@
-#!/usr/bin/env cwl-runner
-# This tool description was generated automatically by wdl2cwl ver. 0.2
-# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
     "baseCommand": ["encode_spp.py"],
@@ -64,7 +61,7 @@
         },
         {
             "type": "File",
-            "id": "chrsz"
+            "id": "chrsz",
             "inputBinding": {
                 "position": 3,
                 "prefix": "--chrsz",
@@ -73,7 +70,7 @@
         },
         {
             "type": "int",
-            "id": "cap_num_peak"
+            "id": "cap_num_peak",
             "default": 300000,
             "inputBinding": {
                 "position": 4,
@@ -83,7 +80,7 @@
         },
         {
             "type": "File",
-            "id": "blacklist"
+            "id": "blacklist",
             "inputBinding": {
                 "position": 5,
                 "prefix": "--blacklist",

@@ -1,9 +1,6 @@
-#!/usr/bin/env cwl-runner
-# This tool description was generated automatically by wdl2cwl ver. 0.2
-# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
-    "baseCommand": [encode_naive_overlap.py],
+    "baseCommand": ["encode_naive_overlap.py"],
     "outputs": [
         {
             "outputBinding": {
@@ -38,21 +35,21 @@
             "type": "File",
             "id": "peak1",
             "inputBinding": {
-                "position": 1,
+                "position": 1
             }
         },
         {
             "type": "File",
             "id": "peak2",
             "inputBinding": {
-                "position": 2,
+                "position": 2
             }
         },
         {
             "type": "File",
             "id": "peak_pooled",
             "inputBinding": {
-                "position": 3,
+                "position": 3
             }
         },
         {

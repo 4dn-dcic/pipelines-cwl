@@ -1,7 +1,3 @@
-#!/usr/bin/env cwl-runner
-# This tool description was generated automatically by wdl2cwl ver. 0.2
-# and then extensively modified by Soo Lee
-
 {
     "class": "CommandLineTool",
     "baseCommand": ["encode_trim_fastq.py"],
@@ -26,7 +22,7 @@
         },
         {
             "type": "int",
-            "id": "trim_bp"
+            "id": "trim_bp",
             "default": 50,
             "inputBinding": {
               "position": 1,

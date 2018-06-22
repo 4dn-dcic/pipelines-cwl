@@ -1,6 +1,3 @@
-#!/usr/bin/env cwl-runner
-# This tool description was generated automatically by wdl2cwl ver. 0.2
-
 {
     "class": "CommandLineTool",
     "baseCommand": [],

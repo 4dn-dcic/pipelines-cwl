@@ -1,6 +1,3 @@
-#!/usr/bin/env cwl-runner
-# This tool description was generated automatically by wdl2cwl ver. 0.2
-# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
     "baseCommand": ["encode_filter.py"],
@@ -66,7 +63,7 @@
         {
             "type": "boolean",
             "id": "dup_marker",
-            "default": 'picard',
+            "default": "picard",
             "inputBinding": {
                 "position": 5,
                 "separate": true,

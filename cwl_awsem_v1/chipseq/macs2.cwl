@@ -1,6 +1,3 @@
-#!/usr/bin/env cwl-runner
-# This tool description was generated automatically by wdl2cwl ver. 0.2
-# and then extensively modified by Soo Lee
 {
     "class": "CommandLineTool",
     "baseCommand": ["encode_macs2_chip.py"],
@@ -64,7 +61,7 @@
         },
         {
             "type": "string",
-            "id": "gensz"
+            "id": "gensz",
             "inputBinding": {
                 "position": 3,
                 "prefix": "--gensz",
@@ -73,7 +70,7 @@
         },
         {
             "type": "File",
-            "id": "chrsz"
+            "id": "chrsz",
             "inputBinding": {
                 "position": 4,
                 "prefix": "--chrsz",
@@ -82,7 +79,7 @@
         },
         {
             "type": "int",
-            "id": "cap_num_peak"
+            "id": "cap_num_peak",
             "default": 500000,
             "inputBinding": {
                 "position": 5,
@@ -92,7 +89,7 @@
         },
         {
             "type": "float",
-            "id": "pval_thresh"
+            "id": "pval_thresh",
             "default": 0.01,
             "inputBinding": {
                 "position": 6,
@@ -102,7 +99,7 @@
         },
         {
             "type": "boolean",
-            "id": "make_signal"
+            "id": "make_signal",
             "default": false,
             "inputBinding": {
                 "position": 7,
@@ -112,7 +109,7 @@
         },
         {
             "type": "File",
-            "id": "blacklist"
+            "id": "blacklist",
             "inputBinding": {
                 "position": 8,
                 "prefix": "--blacklist",
