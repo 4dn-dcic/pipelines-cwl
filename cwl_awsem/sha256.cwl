@@ -16,7 +16,7 @@
         {
             "outputBinding": {
                 "loadContents": true,
-                "glob": "\"report\""
+                "glob": "report"
             },
             "type": [
                 "null",
