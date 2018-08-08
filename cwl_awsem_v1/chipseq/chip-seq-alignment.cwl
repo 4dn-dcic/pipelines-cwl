@@ -97,10 +97,7 @@
         "analysis_step_types": [
           "merging"
         ],
-        "description": "Merging raw fastq files",
-        "software_used": [
-          null
-        ]
+        "description": "Merging raw fastq files"
       },
       "id": "#merge_fastq",
       "in": [
@@ -130,10 +127,7 @@
         "analysis_step_types": [
           "merging"
         ],
-        "description": "Merging raw fastq files",
-        "software_used": [
-          null
-        ]
+        "description": "Merging raw fastq files"
       },
       "id": "#merge_fastq2",
       "in": [
@@ -163,10 +157,7 @@
         "analysis_step_types": [
           "trimming"
         ],
-        "description": "Trimming fastq files",
-        "software_used": [
-          null
-        ]
+        "description": "Trimming fastq files"
       },
       "id": "#trim_fastq",
       "in": [
@@ -191,10 +182,7 @@
         "analysis_step_types": [
           "trimming"
         ],
-        "description": "Trimming fastq files",
-        "software_used": [
-          null
-        ]
+        "description": "Trimming fastq files"
       },
       "id": "#trim_fastq2",
       "in": [
