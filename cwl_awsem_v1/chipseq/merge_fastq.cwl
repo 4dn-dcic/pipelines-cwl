@@ -1,57 +1,61 @@
 {
-    "class": "CommandLineTool",
-    "baseCommand": ["encode_merge_fastq.py"],
-    "outputs": [
+  "class": "CommandLineTool",
+  "baseCommand": [
+    "encode_merge_fastq.py"
+  ],
+  "outputs": [
+    {
+      "outputBinding": {
+        "glob": "merge_fastqs_R1*merged.fastq.gz"
+      },
+      "type": [
+        "File",
+        "null"
+      ],
+      "id": "merged_fastq"
+    }
+  ],
+  "inputs": [
+    {
+      "type": [
         {
-            "outputBinding": {
-                "glob": [
-                    "merge_fastqs_R1.fastq.gz"
-                ]
-            },
-            "type": "File",
-            "id": "merged_fastq"
-        }
-    ],
-    "inputs": [
-        {
-            "type": {
-                "type": "array",
-                "items": "File"
-            },
-            "id": "fastqs",
-            "inputBinding": {
-                "position": 1
-            }
+          "type": "array",
+          "items": "File"
         },
-        {
-            "type": "boolean",
-            "id": "paired_end",
-            "default": false,
-            "inputBinding": {
-                "position": 1,
-                "separate": true,
-                "prefix": "--paired-end"
-            }
-        },
-        {
-            "type": "int",
-            "id": "cpu",
-            "default": 2,
-            "inputBinding": {
-                "position": 2,
-                "separate": true,
-                "prefix": "--nth"
-            }
-        }
-    ],
-    "id": "merge_fastq",
-    "requirements": [
-        {
-            "class": "ShellCommandRequirement"
-        },
-        {
-            "class": "InlineJavascriptRequirement"
-        }
-    ],
-    "cwlVersion": "v1.0"
+        "null"
+      ],
+      "id": "fastqs",
+      "inputBinding": {
+        "position": 2,
+        "separate": true,
+        "prefix": "--fastq"
+      }
+    },
+    {
+      "type": "int",
+      "id": "cpu",
+      "default": 2,
+      "inputBinding": {
+        "position": 1,
+        "separate": true,
+        "prefix": "--nth"
+      }
+    }
+  ],
+  "id": "merge_fastq",
+  "requirements": [
+    {
+      "class": "ShellCommandRequirement"
+    },
+    {
+      "class": "InlineJavascriptRequirement"
+    }
+  ],
+  "cwlVersion": "v1.0",
+  "hints": [
+    {
+      "dockerPull": "duplexa/4dn-chipseq:v2",
+      "class": "DockerRequirement"
+    }
+  ]
 }
