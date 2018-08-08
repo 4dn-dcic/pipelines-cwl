@@ -14,7 +14,7 @@
   "inputs": [
     {
       "fdn_format": "fastq",
-      "id": "#fastqs1",
+      "id": "#fastqs",
       "type": [
         {
           "items": "File",
@@ -102,12 +102,12 @@
       "id": "#merge_fastq",
       "in": [
         {
-          "arg_name": "fastqs",
+          "arg_name": "fastqs_to_be_merged",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "array",
           "id": "#merge_fastq/fastqs",
-          "source": "#fastqs1"
+          "source": "#fastqs"
         },
         {
           "arg_name": "cpu",
@@ -117,7 +117,7 @@
       ],
       "out": [
         {
-          "arg_name": "merged_fastq1",
+          "arg_name": "merged_fastq",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -136,7 +136,7 @@
       "id": "#merge_fastq2",
       "in": [
         {
-          "arg_name": "fastqs",
+          "arg_name": "fastqs_to_be_merged2",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "array",
@@ -170,7 +170,7 @@
       "id": "#trim_fastq",
       "in": [
         {
-          "arg_name": "fastq",
+          "arg_name": "fastq_to_be_trimmed",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -199,7 +199,7 @@
       "id": "#trim_fastq2",
       "in": [
         {
-          "arg_name": "fastq",
+          "arg_name": "fastqs_to_be_trimmed2",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -209,7 +209,7 @@
       ],
       "out": [
         {
-          "arg_name": "trimmed_fastq",
+          "arg_name": "trimmed_fastq2",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -231,7 +231,7 @@
       "id": "#bwa",
       "in": [
         {
-          "arg_name": "fastq1",
+          "arg_name": "fastq_to_be_aligned",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -239,7 +239,7 @@
           "source": "#trim_fastq/trimmed_fastq"
         },
         {
-          "arg_name": "fastq2",
+          "arg_name": "fastq_to_be_aligned2",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
