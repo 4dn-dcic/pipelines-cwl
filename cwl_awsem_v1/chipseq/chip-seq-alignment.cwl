@@ -104,6 +104,8 @@
         {
           "arg_name": "fastqs",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "array",
           "id": "#merge_fastq/fastqs",
           "source": "#fastqs1"
         },
@@ -117,6 +119,8 @@
         {
           "arg_name": "merged_fastq1",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#merge_fastq/merged_fastq"
         }
       ],
@@ -134,6 +138,8 @@
         {
           "arg_name": "fastqs",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "array",
           "id": "#merge_fastq2/fastqs",
           "source": "#fastqs2"
         },
@@ -147,6 +153,8 @@
         {
           "arg_name": "merged_fastq2",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#merge_fastq2/merged_fastq"
         }
       ],
@@ -164,6 +172,8 @@
         {
           "arg_name": "fastq",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#trim_fastq/fastq",
           "source": "#merge_fastq/merged_fastq"
         }
@@ -172,6 +182,8 @@
         {
           "arg_name": "trimmed_fastq",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#trim_fastq/trimmed_fastq"
         }
       ],
@@ -189,6 +201,8 @@
         {
           "arg_name": "fastq",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#trim_fastq2/fastq",
           "source": "#merge_fastq2/merged_fastq"
         }
@@ -197,6 +211,8 @@
         {
           "arg_name": "trimmed_fastq",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#trim_fastq2/trimmed_fastq"
         }
       ],
@@ -217,18 +233,24 @@
         {
           "arg_name": "fastq1",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#bwa/fastq1",
           "source": "#trim_fastq/trimmed_fastq"
         },
         {
           "arg_name": "fastq2",
           "fdn_format": "fastq",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#bwa/fastq2",
           "source": "#trim_fastq2/trimmed_fastq"
         },
         {
           "arg_name": "bwa_index",
           "fdn_format": "bwaIndex",
+          "fdn_type": "reference file",
+          "fdn_cardinality": "single",
           "id": "#bwa/bwa_index",
           "source": "#bwaIndex"
         },
@@ -247,11 +269,13 @@
         {
           "arg_name": "bam",
           "fdn_format": "bam",
+          "fdn_type": "data file",
+          "fdn_cardinality": "single",
           "id": "#bwa/bam"
         },
         {
           "arg_name": "flagstat_qc",
-          "fdn_format": "bam",
+          "fdn_type": "QC file",
           "id": "#bwa/flagstat_qc"
         }
       ],
