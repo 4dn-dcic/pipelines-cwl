@@ -2,7 +2,7 @@
   "class": "Workflow",
   "cwlVersion": "v1.0",
   "fdn_meta": {
-    "category": "merging + trimming + alignment",
+    "category": "alignment",
     "data_types": [
       "ChIP-seq"
     ],
@@ -248,6 +248,11 @@
           "arg_name": "paired_end",
           "id": "#bwa/paired_end",
           "source": "#paired_end"
+        },
+        {
+          "arg_name": "cpu",
+          "id": "#bwa/cpu",
+          "source": "#nthreads_bwa"
         }
       ],
       "out": [
