@@ -283,7 +283,7 @@
         },
         {
           "arg_name": "flagstat_qc",
-          "fdn_type": "QC file",
+          "fdn_type": "QC",
           "id": "#bwa/flagstat_qc"
         }
       ],
