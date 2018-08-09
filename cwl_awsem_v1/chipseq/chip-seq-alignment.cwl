@@ -102,7 +102,7 @@
       "id": "#merge_fastq",
       "in": [
         {
-          "arg_name": "fastqs_to_be_merged",
+          "arg_name": "fastqs",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "array",
@@ -136,7 +136,7 @@
       "id": "#merge_fastq2",
       "in": [
         {
-          "arg_name": "fastqs_to_be_merged2",
+          "arg_name": "fastqs",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "array",
@@ -151,7 +151,7 @@
       ],
       "out": [
         {
-          "arg_name": "merged_fastq2",
+          "arg_name": "merged_fastq",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -170,7 +170,7 @@
       "id": "#trim_fastq",
       "in": [
         {
-          "arg_name": "fastq_to_be_trimmed",
+          "arg_name": "fastq",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -199,7 +199,7 @@
       "id": "#trim_fastq2",
       "in": [
         {
-          "arg_name": "fastqs_to_be_trimmed2",
+          "arg_name": "fastq",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -209,7 +209,7 @@
       ],
       "out": [
         {
-          "arg_name": "trimmed_fastq2",
+          "arg_name": "trimmed_fastq",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -231,7 +231,7 @@
       "id": "#bwa",
       "in": [
         {
-          "arg_name": "fastq_to_be_aligned",
+          "arg_name": "fastq1",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
@@ -239,7 +239,7 @@
           "source": "#trim_fastq/trimmed_fastq"
         },
         {
-          "arg_name": "fastq_to_be_aligned2",
+          "arg_name": "fastq2",
           "fdn_format": "fastq",
           "fdn_type": "data file",
           "fdn_cardinality": "single",
