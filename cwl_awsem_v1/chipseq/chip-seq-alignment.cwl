@@ -112,6 +112,8 @@
         {
           "arg_name": "cpu",
           "id": "#merge_fastq/cpu",
+          "fdn_type": "parameter",
+          "fdn_cardinality": "single",
           "source": "#nthreads_merge_fastq"
         }
       ],
@@ -146,6 +148,8 @@
         {
           "arg_name": "cpu",
           "id": "#merge_fastq2/cpu",
+          "fdn_type": "parameter",
+          "fdn_cardinality": "single",
           "source": "#nthreads_merge_fastq"
         }
       ],
@@ -257,11 +261,15 @@
         {
           "arg_name": "paired_end",
           "id": "#bwa/paired_end",
+          "fdn_type": "parameter",
+          "fdn_cardinality": "single",
           "source": "#paired_end"
         },
         {
           "arg_name": "cpu",
           "id": "#bwa/cpu",
+          "fdn_type": "parameter",
+          "fdn_cardinality": "single",
           "source": "#nthreads_bwa"
         }
       ],
