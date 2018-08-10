@@ -101,7 +101,7 @@
                 "description": "Adapter removal according to the Repli-seq pipeline", 
                 "software_used": [
                     "cutadapt_1.14", 
-                    "repli-seq-pipeline_74bb1d"
+                    "repli-seq-pipeline_5ab572"
                 ]
             }, 
             "id": "#clip", 
@@ -133,7 +133,7 @@
                 "description": "Alignment according to the Repli-seq pipeline", 
                 "software_used": [
                     "bwa_0.7.15", 
-                    "repli-seq-pipeline_74bb1d"
+                    "repli-seq-pipeline_5ab572"
                 ]
             }, 
             "id": "#align", 
@@ -180,7 +180,7 @@
                 "description": "Filtering and sorting according to the Repli-seq pipeline", 
                 "software_used": [
                     "samtools_1.4", 
-                    "repli-seq-pipeline_74bb1d"
+                    "repli-seq-pipeline_5ab572"
                 ]
             }, 
             "id": "#filtersort", 
@@ -225,7 +225,7 @@
                 "description": "PCR Duplicate removal according to the Repli-seq pipeline", 
                 "software_used": [
                     "samtools_1.4", 
-                    "repli-seq-pipeline_74bb1d"
+                    "repli-seq-pipeline_5ab572"
                 ]
             }, 
             "id": "#dedup", 
@@ -264,7 +264,7 @@
                 "description": "Read aggregation according to the Repli-seq pipeline", 
                 "software_used": [
                     "bedtools_2.26.0", 
-                    "repli-seq-pipeline_74bb1d", 
+                    "repli-seq-pipeline_5ab572", 
                     "pairix_0.3.5", 
                     "bedGraphToBigWig_v302.1.0"
                 ]
