@@ -12,7 +12,7 @@ matrix:
     - env:
         - CWL_TEST_V1=1 CWL_NAME_LIST="hi-c-processing-pairs hi-c-processing-bam pairs-patch addfragtopairs pairsam-filter pairsam-markasdup merge-pairs pairsam-merge pairsam-parse-sort extract-mcool-normvector-for-juicebox md5 fastqc-0-11-4-1 cool2mcool bwa-mem md5-validate"
       install:
-        - pip install git+https://github.com/common-workflow-language/cwltool.git  # for v1
+        - pip install cwltool==1.0.20180806194258  # for v1
       script:
         - set -e;
           for CWL_NAME in $CWL_NAME_LIST; do
