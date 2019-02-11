@@ -1,5 +1,5 @@
 # pipelines-cwl
-* This is a collection of pipelines built by 4DN-DCIC that were created and run either on the SevenBridges platform or on the 4DN platform, AWSEM.
+* This is a collection of pipelines built by 4DN-DCIC that were used to process 4DN data on the 4DN portal using Tibanna workflow executor.
 
 ### Directories
 * `cwl_awsem` : AWSEM CWLs in draft-3 in json format
@@ -42,16 +42,15 @@ To run docker through CWL, you need a cwl executor - we use `cwltool` (https://g
 
 
 ### Testing CWL
-To test cwls in this repo against the test files in `tests`, use `tests/tests.sh` with cwl name (without .cwl).
+To test cwls in this repo against the test files in `tests`, use `tests/tests_v1.sh` with cwl name (without .cwl).
 ```bash
-source tests/tests.sh bwa-mem
+source tests/tests_v1.sh bwa-mem
 ```
 
-### Benchmark (calculating CPU, Memory, space and determining an instance type)
-The Benchmark is now moved to https://github.com/SooLee/Benchmark
+### Notes on releases
 
-
-### Notes on SBG/AWSEM
+#### Freeze >= 0.2.6
+* All CWL is converted to version 1 (no more draft3) and they are kept in the folder `cwl_awsem_v1`.
 
 #### Freeze >=0.0.2
 * Directory `cwl_awsem` is manually updated starting from freeze 0.0.2 (after Sep 1, 2017), since we no longer use SevenBridges.
