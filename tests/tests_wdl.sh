@@ -1,6 +1,6 @@
 WDL_NAME=$1
 CROMWELL_JAR=$2
-WDL_FILENAME=wdl/$1.wdl
+WDL_FILENAME=converted_wdl/$1.wdl
 INPUT_JSON_NAME=$1.input.json
 CWD=$(pwd)
 OUTDIR=$CWD/tests/test_outdir
