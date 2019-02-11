@@ -21,18 +21,6 @@ matrix:
           done;
           set +e;
     - env:
-        - CWL_TEST_DRAFT3=1 CWL_NAME_LIST="hi-c-processing-pairs hi-c-processing-bam pairs-patch addfragtopairs pairsam-filter pairsam-markasdup merge-pairs pairsam-merge pairsam-parse-sort extract-mcool-normvector-for-juicebox md5 fastqc-0-11-4-1 cool2mcool bwa-mem md5-validate"
-      before_install:
-        - pip install schema_salad
-      install:
-        - pip install git+https://github.com/SooLee/cwltool.git  # cwltool, for draft-3
-      script:
-        - set -e;
-          for CWL_NAME in $CWL_NAME_LIST; do
-             source tests/tests.sh $CWL_NAME;
-          done;
-          set +e;
-    - env:
         - WDL_TEST=1 CROMWELL_JAR=cromwell.jar WDL_NAME_LIST="bwa-mem"
       install:
         - wget https://github.com/broadinstitute/cromwell/releases/download/29/cromwell-29.jar -O $CROMWELL_JAR
