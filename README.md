@@ -17,7 +17,10 @@ source tests/tests_v1.sh bwa-mem
 ### Notes on releases
 
 #### Freeze 0.2.7
-4DN pipeline suite freeze `0.2.7` is equivalent to the following.
+
+* All CWL is now in the folder `cwl`.
+
+The 4DN pipeline suite freeze `0.2.7` is equivalent to the following.
 * Hi-C processing pipeline `v43`
 * Repliseq processing pipeline `v16`
 * FastQC `v2`
