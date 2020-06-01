@@ -1,52 +1,41 @@
 ---
   outputs: 
     - 
-      id: "#out_filtered_bed"
+      id: "#merged_pairs"
       type: 
+        - "null"
         - "File"
+      secondaryFiles: 
+        - ".px2"
       outputBinding: 
-        glob: "$(inputs.outdir + '/' + inputs.outprefix + '.filtered.bed')"
+        glob: "$(inputs.outprefix + '.pairs.gz')"
   baseCommand: 
-    - "make_filteredbed"
+    - "run-merge-pairs.sh"
   hints: 
     - 
-      dockerPull: "duplexa/4dn-repliseq:v16"
+      dockerPull: "duplexa/4dn-hic:v43"
       class: "DockerRequirement"
   cwlVersion: "v1.0"
   class: "CommandLineTool"
   arguments: []
   inputs: 
     - 
-      id: "#outdir"
+      id: "#outprefix"
       inputBinding: 
         position: 1
         separate: true
-      default: "."
-      type: 
-        - "string"
-    - 
-      id: "#outprefix"
-      inputBinding: 
-        position: 2
-        separate: true
       default: "out"
       type: 
+        - "null"
         - "string"
     - 
-      type: 
-        - "float"
-      id: "#min_rpkm"
-      inputBinding: 
-        position: 3
-        separate: true
-      default: 0.1
-    - 
-      id: "#input_bgs"
+      id: "#input_pairs"
       inputBinding: 
         itemSeparator: " "
-        position: 4
+        position: 2
         separate: true
       type: 
+        - "null"
         - 
           items: "File"
           type: "array"

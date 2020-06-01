@@ -1,7 +1,7 @@
 ---
   hints: 
     - 
-      dockerPull: "duplexa/4dn-repliseq:v16"
+      dockerPull: "duplexa/4dn-hic:v43"
       class: "DockerRequirement"
   arguments: []
   class: "CommandLineTool"
@@ -9,46 +9,60 @@
     - 
       type: 
         - "File"
-      id: "#input_bg"
+      id: "#fastq1"
       inputBinding: 
-        position: 4
+        position: 1
+        separate: true
+    - 
+      type: 
+        - "File"
+      id: "#fastq2"
+      inputBinding: 
+        position: 2
+        separate: true
+    - 
+      type: 
+        - "File"
+      id: "#bwa_index"
+      inputBinding: 
+        position: 3
         separate: true
     - 
       type: 
         - "int"
-      id: "#lspan"
+      id: "#nThreads"
       inputBinding: 
-        position: 1
+        position: 6
         separate: true
-        prefix: "-l"
-      default: 300000
+      default: 4
     - 
       type: 
+        - "null"
         - "string"
-      id: "#outprefix"
+      id: "#prefix"
       inputBinding: 
-        position: 3
+        position: 5
         separate: true
-        prefix: "-p"
       default: "out"
     - 
       type: 
+        - "null"
         - "string"
       id: "#outdir"
       inputBinding: 
-        position: 2
+        position: 4
         separate: true
-        prefix: "-d"
       default: "."
   outputs: 
     - 
       type: 
+        - "null"
         - "File"
-      id: "#out_smooth_bg"
+      id: "#out_bam"
       outputBinding: 
-        glob: "$(inputs.outdir + '/' + inputs.outprefix + '.loess' + inputs.lspan + '.bg')"
+        glob: "*.bam"
   baseCommand: 
-    - "smooth"
+    - "run-bwa-mem.sh"
   requirements: 
     - 
       class: "InlineJavascriptRequirement"
