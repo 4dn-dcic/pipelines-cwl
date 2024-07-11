@@ -58,7 +58,7 @@
   hints: 
     - 
       class: "DockerRequirement"
-      dockerPull: "duplexa/4dn-hic:v43"
+      dockerPull: "public.ecr.aws/dcic-4dn/4dn-hic:v44"
   class: "CommandLineTool"
   requirements: 
     - 
